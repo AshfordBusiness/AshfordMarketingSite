@@ -32,7 +32,7 @@ Concrete beats abstract. The five builds are the examples:
 | Build | What it does |
 |---|---|
 | AI operations system | The default build. Core: ops dashboards, CRM and Claude wired into the company's Notion, built from its own material. Add-ons: meeting notes and tasks, project trackers |
-| Business AI brain | Claude or ChatGPT wired into Notion, so the company's own material answers the questions |
+| Business AI brain | An AI system built to understand the business at every level, to support well-informed, high-level decisions. Strongest paired with the AI operations system (site wording, Ryan, 25 Sep 2026) |
 | Marketing agents | Planning, writing, posting and tracking, as one running system |
 | AI meeting note taker | No AI joining the call. A bespoke tool that takes notes in meetings and populates the client's custom databases (replaced the follow-up agent on the site, Ryan, 25 Sep 2026) |
 | Lead validation and outreach | Finds, checks and drafts, ready to send |
