@@ -61,6 +61,7 @@ Commercial shape that may be stated: fixed prices, mostly monthly.
 
 - Name: Ashford Integrations. Wordmark "ASHFORD / INTEGRATIONS" with a castle-tower mark; green square mark used in Notion.
 - Voice: plain English, British spelling, direct, concrete. No jargon, no hype, no em dashes.
+- Always "we", never "I", in all site copy, case studies included (Ryan, 25 Sep 2026).
 - The current site's visual look is being replaced; treat it as evidence, not authority.
 
 ## Evidence on Hand
