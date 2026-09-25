@@ -99,7 +99,7 @@ section{padding:clamp(64px,9vw,120px) 0}
 .feature dt{color:#9fb5a8;font-weight:500}
 .feature dd{color:#fff}
 .list{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:0 clamp(20px,2.4vw,30px);display:grid;grid-template-rows:repeat(4,1fr)}
-.item{padding:24px 0;display:grid;grid-template-columns:44px 1fr;gap:18px;align-items:center}
+.item{padding:24px 0;display:grid;grid-template-columns:44px 1fr;gap:18px;align-items:center;align-content:center}
 .item+.item{border-top:1px solid var(--line)}
 .item svg{width:44px;height:44px;padding:10px;border-radius:12px;background:var(--accent-tint);color:var(--accent)}
 .item p{color:var(--mute);font-size:16px;margin-top:4px}
@@ -117,7 +117,7 @@ section{padding:clamp(64px,9vw,120px) 0}
 .teach li{display:flex;gap:12px;align-items:flex-start}
 .teach li svg{width:22px;height:22px;flex:none;color:var(--accent);margin-top:2px}
 .who{background:#fff;border-radius:var(--radius);border:1px solid var(--line);padding:clamp(24px,3vw,36px)}
-.who table{font-size:16px}.who td:last-child{color:var(--mute)}
+.who table{font-size:16px}.who td:last-child{text-align:left}
 
 /* work */
 .cases{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -295,9 +295,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <div class="who win">
         <p class="wt">Who it is for</p>
         <table>
-          <tr><td>Never opened ChatGPT</td><td>One to one</td></tr>
-          <tr><td>Using it now and then</td><td>One to one or group</td></tr>
-          <tr><td>A team using it badly</td><td>Group</td></tr>
+          <tr><td>Never opened ChatGPT</td></tr>
+          <tr><td>Using it now and then</td></tr>
+          <tr><td>A team using it badly</td></tr>
         </table>
       </div>
     </div>
