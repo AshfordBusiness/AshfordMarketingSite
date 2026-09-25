@@ -172,7 +172,7 @@ components:
 
 ## Overview
 
-**Creative North Star: "The Well-Kept Workspace"**
+**Creative North Star: "The Operations Dashboard"**
 
 The page reads like a tidy, familiar workspace that someone competent has already set up for you. It is a category-standard modern agency page played straight and finished carefully: white ground, deep green-black ink, one committed green, soft grey-green bands, and a single typeface. Nothing is there to impress; everything is there to be understood by a busy owner in one pass.
 

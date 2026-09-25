@@ -361,7 +361,7 @@
     }
   ],
   "narrative": {
-    "northStar": "The Well-Kept Workspace",
+    "northStar": "The Operations Dashboard",
     "overview": "The page reads like a tidy, familiar workspace that someone competent has already set up for you. It is a category-standard modern agency page played straight and finished carefully: white ground, deep green-black ink, one committed green, soft grey-green bands, and a single typeface. Nothing is there to impress; everything is there to be understood by a busy owner in one pass.\n\nThe illustrative material is the product's own habitat. Instead of photography, gradients or robot imagery, the page shows small Notion-like windows: a titled table, hairline rows, status pills, tabular numbers. Each one is plainly labelled as illustrative. The one committed green does the selling (the primary pill, ticks, icon strokes, the castle mark) and the ink colour does the weight (the headline, the feature card, the closing band).\n\nDensity is relaxed and editorial. Sections breathe on generous vertical padding, content sits in a 1240px container, and headings are heavy and tightly tracked so short, plain sentences carry the page. The build refuses the generic AI look (gradients, glow, robot icons) and the stiff consultancy look (navy, serif gravitas, stock handshakes).",
     "keyCharacteristics": [
       "White and soft grey-green bands alternate; two ink surfaces bookend the page.",
