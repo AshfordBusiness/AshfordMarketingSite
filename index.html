@@ -59,8 +59,8 @@ nav a:not(.pill):hover{color:var(--accent)}
 .pill svg{width:16px;height:16px}
 
 /* hero */
-.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(32px,5vw,72px);align-items:center;padding-top:clamp(40px,7vw,96px);padding-bottom:clamp(56px,8vw,112px)}
-.hero h1{font-size:clamp(40px,5vw,72px);font-weight:800;letter-spacing:-.035em;line-height:1.02}
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(32px,5vw,72px);align-items:center;padding-top:clamp(40px,7vw,96px);padding-bottom:clamp(56px,8vw,112px)}
+.hero h1{font-size:clamp(40px,4.5vw,66px);font-weight:800;letter-spacing:-.035em;line-height:1.02}
 .hero .lede{margin-top:24px}
 .btns{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap}
 .clients{margin-top:44px;display:flex;flex-wrap:wrap;gap:6px 20px;font-size:15px;color:var(--mute)}
@@ -90,25 +90,25 @@ section{padding:clamp(64px,9vw,120px) 0}
 /* builds */
 .builds{display:grid;grid-template-columns:1.1fr 1fr;gap:16px}
 .feature{background:var(--ink);color:#fff;border-radius:var(--radius);padding:clamp(28px,3.5vw,44px);display:flex;flex-direction:column;min-height:100%}
-.feature .badge{align-self:flex-start;font-size:13px;font-weight:600;background:rgba(255,255,255,.12);padding:5px 12px;border-radius:999px;color:#d7e8de}
-.feature h3{font-size:clamp(26px,2.6vw,34px);margin-top:22px}
+.feature h3{font-size:clamp(26px,2.6vw,34px)}
+.feature .win{margin-top:28px;color:var(--ink)}
+.feature .win p{color:var(--mute);margin:0;max-width:none}
+.feature .win .wt{color:var(--ink)}
 .feature p{color:#c9d6ce;margin-top:12px;max-width:42ch}
-.feature dl{margin-top:auto;padding-top:32px;display:grid;grid-template-columns:auto 1fr;gap:14px 20px;font-size:15px}
+.feature dl{margin-top:28px;display:grid;grid-template-columns:auto 1fr;gap:14px 20px;font-size:15px}
 .feature dt{color:#9fb5a8;font-weight:500}
 .feature dd{color:#fff}
-.list{display:grid;grid-template-rows:repeat(4,1fr);gap:16px}
-.item{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px 26px;display:grid;grid-template-columns:44px 1fr;gap:18px;align-items:start;transition:border-color .2s,box-shadow .2s}
-.item:hover{border-color:#c9d3ce;box-shadow:0 14px 30px -22px rgba(20,40,30,.4)}
+.list{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:0 clamp(20px,2.4vw,30px);display:grid;grid-template-rows:repeat(4,1fr)}
+.item{padding:24px 0;display:grid;grid-template-columns:44px 1fr;gap:18px;align-items:center}
+.item+.item{border-top:1px solid var(--line)}
 .item svg{width:44px;height:44px;padding:10px;border-radius:12px;background:var(--accent-tint);color:var(--accent)}
 .item p{color:var(--mute);font-size:16px;margin-top:4px}
 .included{margin-top:20px;display:flex;align-items:center;gap:10px;font-size:15px;color:var(--mute)}
 .included svg{width:20px;height:20px;color:var(--accent);flex:none}
 
 /* steps */
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:s}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;list-style:none}
 .step{border-top:2px solid var(--ink);padding-top:22px}
-.step span{font-size:14px;font-weight:700;color:var(--accent)}
-.step h3{margin-top:10px}
 .step p{color:var(--mute);margin-top:8px;max-width:32ch}
 
 /* teach */
@@ -117,10 +117,7 @@ section{padding:clamp(64px,9vw,120px) 0}
 .teach li{display:flex;gap:12px;align-items:flex-start}
 .teach li svg{width:22px;height:22px;flex:none;color:var(--accent);margin-top:2px}
 .who{background:#fff;border-radius:var(--radius);border:1px solid var(--line);padding:clamp(24px,3vw,36px)}
-.who h3{font-size:18px}
-.who .scale{display:flex;justify-content:space-between;margin-top:18px;font-size:14px;color:var(--mute)}
-.who .bar{height:10px;border-radius:999px;background:linear-gradient(90deg,var(--accent-tint),var(--accent));margin-top:10px}
-.who p{margin-top:22px;color:var(--mute);font-size:16px}
+.who table{font-size:16px}.who td:last-child{color:var(--mute)}
 
 /* work */
 .cases{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -148,7 +145,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 /* motion: one moment, the pipeline tag flips once the page settles */
 @media (prefers-reduced-motion:no-preference){
   .hero .panel{animation:rise .9s cubic-bezier(.16,1,.3,1) both}
-  @keyframes rise{from{transform:translateY(18px);opacity:.001}to{transform:none;opacity:1}}
+  @keyframes rise{from{transform:translateY(18px);opacity:.6}to{transform:none;opacity:1}}
 }
 
 @media (max-width:900px){
@@ -202,7 +199,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         <p class="wt">Pipeline <span>Illustrative example</span></p>
         <table>
           <tr><td>Quote, kitchen refit</td><td><span class="tag due" id="flip">Follow up due</span></td></tr>
-          <tr><td>Enquiry, private hire</td><td><span class="tag">Replied</span></td></tr>
+          <tr><td>Enquiry, private hire</td><td><span class="tag due">Follow up Tue</span></td></tr>
           <tr><td>Proposal, office move</td><td><span class="tag">Call booked</span></td></tr>
         </table>
       </div>
@@ -231,13 +228,20 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       </div>
       <div class="builds">
         <article class="feature">
-          <span class="badge">Where most businesses start</span>
           <h3>AI operations system</h3>
-          <p>Your dashboards, CRM and pipeline in one place, with Claude wired into your Notion and built from your own material.</p>
+          <p>The usual starting point. Your dashboards, CRM and pipeline in one place, with Claude wired into your Notion and built from your own material.</p>
           <dl>
             <dt>Core</dt><dd>Ops dashboards, CRM, Claude in your Notion</dd>
             <dt>Add-ons</dt><dd>Meeting notes and tasks, project trackers</dd>
           </dl>
+          <div class="win" aria-label="Illustrative example">
+            <p class="wt">Monday in your Notion <span>Illustrative</span></p>
+            <table>
+              <tr><td>Ops dashboard</td><td><span class="tag">Updated</span></td></tr>
+              <tr><td>CRM follow-ups</td><td><span class="tag due">3 due</span></td></tr>
+              <tr><td>Last week's meetings</td><td><span class="tag">Notes filed</span></td></tr>
+            </table>
+          </div>
         </article>
         <div class="list">
           <article class="item">
@@ -268,11 +272,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         <h2>How it starts.</h2>
         <p>No hourly billing and no open-ended projects. You know the price before anything is built.</p>
       </div>
-      <div class="steps">
-        <div class="step"><span>Step 1</span><h3>Email Ryan</h3><p>Tell us the job that eats your week.</p></div>
-        <div class="step"><span>Step 2</span><h3>30 minute call</h3><p>We walk through that job together and find where it breaks.</p></div>
-        <div class="step"><span>Step 3</span><h3>Fixed written proposal</h3><p>A fixed price, mostly monthly, for the system that fixes it.</p></div>
-      </div>
+      <ol class="steps">
+        <li class="step"><h3>1. Email Ryan</h3><p>Tell us the job that eats your week.</p></li>
+        <li class="step"><h3>2. 30 minute call</h3><p>We walk through that job together and find where it breaks.</p></li>
+        <li class="step"><h3>3. Fixed written proposal</h3><p>A fixed price, mostly monthly, for the system that fixes it.</p></li>
+      </ol>
     </div>
   </section>
 
@@ -288,11 +292,13 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         </ul>
         <div class="btns"><a class="pill pill-line" href="mailto:ryan@ashfordbusinessfinance.com?subject=AI%20training">Ask about training</a></div>
       </div>
-      <div class="who">
-        <h3>Who it is for</h3>
-        <div class="scale"><span>Never opened ChatGPT</span><span>Using it every day</span></div>
-        <div class="bar" role="presentation"></div>
-        <p>From someone who has never opened ChatGPT to a team already using it badly.</p>
+      <div class="who win">
+        <p class="wt">Who it is for</p>
+        <table>
+          <tr><td>Never opened ChatGPT</td><td>One to one</td></tr>
+          <tr><td>Using it now and then</td><td>One to one or group</td></tr>
+          <tr><td>A team using it badly</td><td>Group</td></tr>
+        </table>
       </div>
     </div>
   </section>
