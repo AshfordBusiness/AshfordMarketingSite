@@ -11,7 +11,7 @@
 
 .results{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .results .stat{background:#fff;border:1px solid var(--line)}
-.results-note{margin-top:18px;font-size:14px;color:var(--mute);max-width:80ch}
+.results-note{margin-top:24px;font-size:clamp(17px,1.4vw,19px);color:var(--ink);max-width:66ch}
 
 .prose{max-width:62ch}
 .prose p+p{margin-top:16px}
