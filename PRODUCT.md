@@ -65,12 +65,11 @@ Commercial shape that may be stated: fixed prices, mostly monthly.
 
 ## Evidence on Hand
 
-Ryan confirmed on 25 Sep 2026 that both clients below have given permission to be named as case studies. Results and quotes will be supplied by Ryan in writing; until then, the site states the work only and leaves marked gaps. Never invent figures, quotes or outcomes.
+Ryan confirmed on 25 Sep 2026 that Coach Logic has given permission to be named as a case study. Hillend Tavern is not showcased on the site (Ryan, 25 Sep 2026). Results and quotes will be supplied by Ryan in writing; until then, the site states the work only and leaves marked gaps. Never invent figures, quotes or outcomes.
 
 | Client | What Ashford did | Status |
 |---|---|---|
 | Coach Logic | Collaborative video analysis platform for coaches, founded 2012 by two rugby coaches. Ashford runs its Founder Media Engine: founders' calls, calendars and footage turned into on-voice content drafts via Notion [Likely, from existing site copy and Ashford workflows; Ryan to confirm wording] | Named, results pending |
-| Hillend Tavern | Website rebuilt, live at hillendtavern.co.uk. First client | Named, results pending. Included at Ryan's decision despite websites being out of scope; must not read as a web design offer |
 
 Absent, do not fabricate: testimonials, attendee numbers, training outcomes, client counts, prices.
 
