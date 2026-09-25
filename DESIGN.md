@@ -304,6 +304,16 @@ Brand (castle mark, 30 by 27px, plus "Ashford Integrations" at 18px 800) on the 
 ### Motion
 Two moments only, both skipped under reduced motion: the hero panel rises 18px from 60% opacity over 0.9s on `cubic-bezier(.16,1,.3,1)`, and one status tag flips from due to done after 1.8s. Interaction transitions run at 0.2s (pills) and 0.3s (header border).
 
+### Case study mock-ups (miniature Notion frames)
+
+Used on `work/coach-logic/` (styles in `assets/case.css`) to show a client's real Notion structure without its writing. They are a deliberately miniature scale of the page's own window component, so they sit outside the main radius and colour scale on purpose.
+
+- **Frame:** the soft `.mock` panel (24px radius, the hero panel shadow) holding a white `.page` (14px radius) with a three-dot title bar naming the real database or view.
+- **Inner scale:** boxes 10px, day cells and board cards 8px, checkboxes 3px, event chips 4px.
+- **Redaction:** every piece of client writing becomes a `.r` bar: 9px tall, 5px radius, `#d5ddd9` (darker `#b9c4bf` for titles and dates), blurred 1.2px. Titles of databases, views, properties and generic select options stay real; row titles, names, figures and body text never appear.
+- **Portal callout:** the one off-palette tint, `#e8f0fb`, mirrors Notion's blue callout so the portal reads as Notion.
+- **Captions:** each mock-up carries a caption saying it is anonymised and what is blurred.
+
 ## Do's and Don'ts
 
 ### Do:
