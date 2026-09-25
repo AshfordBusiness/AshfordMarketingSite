@@ -1,0 +1,426 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-25T16:53:07+00:00",
+  "title": "Design System: Ashford Integrations",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "neutral",
+        "displayName": "Green-Black Ink",
+        "canonical": "#16211b",
+        "tonalRamp": [
+          "#050e08",
+          "#1c2721",
+          "#3a463f",
+          "#5a6760",
+          "#7d8a82",
+          "#a1afa7",
+          "#c7d5cd",
+          "#e4f3ea"
+        ]
+      },
+      "mute": {
+        "role": "neutral",
+        "displayName": "Moss Grey",
+        "canonical": "#4f5c55",
+        "tonalRamp": [
+          "#040e09",
+          "#1c2721",
+          "#39463f",
+          "#5a6760",
+          "#7c8a82",
+          "#a0afa7",
+          "#c6d5cd",
+          "#e4f3ea"
+        ]
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "Committed Green",
+        "canonical": "#146c46",
+        "tonalRamp": [
+          "#000f06",
+          "#032c1a",
+          "#005031",
+          "#20744e",
+          "#499970",
+          "#6fbe94",
+          "#96e6b9",
+          "#c4ffdc"
+        ]
+      },
+      "accent-deep": {
+        "role": "primary",
+        "displayName": "Deep Green",
+        "canonical": "#0e5436",
+        "tonalRamp": [
+          "#000f06",
+          "#012c1a",
+          "#064f32",
+          "#327252",
+          "#579674",
+          "#7bbb98",
+          "#a1e2be",
+          "#c5fedd"
+        ]
+      },
+      "accent-tint": {
+        "role": "primary",
+        "displayName": "Green Wash",
+        "canonical": "#e5f1ea",
+        "tonalRamp": [
+          "#060d09",
+          "#1e2621",
+          "#3b4540",
+          "#5c6660",
+          "#7e8983",
+          "#a3aea7",
+          "#c9d4cd",
+          "#e6f2eb"
+        ]
+      },
+      "warn-ink": {
+        "role": "tertiary",
+        "displayName": "Due Amber Ink",
+        "canonical": "#7a4f00",
+        "tonalRamp": [
+          "#130900",
+          "#341f00",
+          "#5b3b02",
+          "#855913",
+          "#aa7c3c",
+          "#d1a162",
+          "#f9c787",
+          "#ffebd3"
+        ]
+      },
+      "warn-tint": {
+        "role": "tertiary",
+        "displayName": "Due Amber Wash",
+        "canonical": "#fff4dc",
+        "tonalRamp": [
+          "#110a00",
+          "#2b2310",
+          "#4a412e",
+          "#6c624e",
+          "#8f856f",
+          "#b4aa93",
+          "#dbd0b9",
+          "#f8eed6"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper White",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#424242",
+          "#636363",
+          "#868686",
+          "#ababab",
+          "#d1d1d1",
+          "#eeeeee"
+        ]
+      },
+      "soft": {
+        "role": "neutral",
+        "displayName": "Soft Sage",
+        "canonical": "#f2f5f3",
+        "tonalRamp": [
+          "#0a0c0a",
+          "#222523",
+          "#414341",
+          "#616462",
+          "#848785",
+          "#a9acaa",
+          "#cfd2d0",
+          "#ecefed"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#e2e7e4",
+        "tonalRamp": [
+          "#090c0a",
+          "#212523",
+          "#3f4341",
+          "#606462",
+          "#838785",
+          "#a7aca9",
+          "#cdd2cf",
+          "#ebf0ed"
+        ]
+      },
+      "on-ink-body": {
+        "role": "neutral",
+        "displayName": "On-Ink Body",
+        "canonical": "#c9d6ce",
+        "tonalRamp": [
+          "#050e08",
+          "#1c2721",
+          "#3a463f",
+          "#5a6760",
+          "#7d8a82",
+          "#a1afa7",
+          "#c7d5cd",
+          "#e4f3ea"
+        ]
+      },
+      "on-ink-label": {
+        "role": "neutral",
+        "displayName": "On-Ink Label",
+        "canonical": "#9fb5a8",
+        "tonalRamp": [
+          "#050e08",
+          "#1c2721",
+          "#3a463f",
+          "#5a6760",
+          "#7d8a82",
+          "#a1afa7",
+          "#c7d5cd",
+          "#e4f3ea"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero headline only."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings, short plain sentences with a full stop."
+      },
+      "headline-close": {
+        "displayName": "Headline Close",
+        "purpose": "The closing band heading."
+      },
+      "title-feature": {
+        "displayName": "Title Feature",
+        "purpose": "The ink feature card heading."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Build, step and case names."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "Moss-grey paragraph under the hero and Teach headings, max 46ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All running copy."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Pill labels."
+      },
+      "nav": {
+        "displayName": "Nav",
+        "purpose": "Header links."
+      },
+      "table": {
+        "displayName": "Table",
+        "purpose": "Rows inside table windows, tabular numerals."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Illustrative labels, status tags, notes."
+      }
+    },
+    "shadows": [
+      {
+        "name": "illustration-lift",
+        "value": "0 30px 60px -30px rgba(20,40,30,.35)",
+        "purpose": "Hero illustration panel only."
+      },
+      {
+        "name": "primary-pill-lift",
+        "value": "0 8px 18px -10px rgba(10,20,15,.45)",
+        "purpose": "Green pill on light grounds; removed on the closing band."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-rise",
+        "value": "cubic-bezier(.16,1,.3,1)",
+        "purpose": "Hero panel entrance: 0.9s, translateY(18px) and opacity .6 to rest. Reduced motion skips it."
+      },
+      {
+        "name": "tag-flip",
+        "value": "1800ms delay; background and colour 0.5s",
+        "purpose": "One hero status tag flips from due to Followed up. Reduced motion skips it."
+      },
+      {
+        "name": "duration-interaction",
+        "value": "0.2s",
+        "purpose": "Pill background, transform, shadow and border changes."
+      },
+      {
+        "name": "duration-header",
+        "value": "0.3s",
+        "purpose": "Header hairline appearing after 8px of scroll."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "stack",
+        "value": "900px",
+        "purpose": "Max-width: all grids to one column, header text links hidden."
+      },
+      {
+        "name": "compact",
+        "value": "420px",
+        "purpose": "Max-width: 64px header, smaller wordmark and nav pill, icon above text in build list."
+      }
+    ],
+    "focus": {
+      "value": "outline: 3px solid #146c46; outline-offset: 3px; border-radius: 999px",
+      "purpose": "All links and buttons."
+    },
+    "header": {
+      "backdropFilter": "saturate(1.4) blur(10px)",
+      "scrollPaddingTop": "88px"
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Pill",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one green action per view: Book a call.",
+      "html": "<a class=\"ds-pill-green\" href=\"#\">Book a call <svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M3 8h10M9 4l4 4-4 4\"/></svg></a>",
+      "css": ".ds-pill-green{display:inline-flex;align-items:center;gap:8px;padding:15px 24px;border-radius:999px;font-family:Figtree,system-ui,sans-serif;font-weight:600;font-size:16px;text-decoration:none;white-space:nowrap;transition:background .2s,transform .2s,box-shadow .2s,border-color .2s;background:var(--accent,#146c46);color:#fff;box-shadow:0 8px 18px -10px rgba(10,20,15,.45)} .ds-pill-green:hover{background:var(--accent-deep,#0e5436);transform:translateY(-1px)} .ds-pill-green:focus-visible{outline:3px solid var(--accent,#146c46);outline-offset:3px;}"
+    },
+    {
+      "name": "Nav Pill",
+      "kind": "button",
+      "refersTo": "button-nav",
+      "description": "Compact ink pill, header only.",
+      "html": "<a class=\"ds-pill-ink\" href=\"#\">Book a call</a>",
+      "css": ".ds-pill-ink{display:inline-flex;align-items:center;gap:8px;padding:15px 24px;border-radius:999px;font-family:Figtree,system-ui,sans-serif;font-weight:600;font-size:16px;text-decoration:none;white-space:nowrap;transition:background .2s,transform .2s,box-shadow .2s,border-color .2s;padding:11px 18px;font-size:15px;background:var(--ink,#16211b);color:#fff} .ds-pill-ink:hover{background:#000} .ds-pill-ink:focus-visible{outline:3px solid var(--accent,#146c46);outline-offset:3px;}"
+    },
+    {
+      "name": "Outline Pill",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary action beside a primary, or the Teach line's only action.",
+      "html": "<a class=\"ds-pill-line\" href=\"#\">See what we build</a>",
+      "css": ".ds-pill-line{display:inline-flex;align-items:center;gap:8px;padding:15px 24px;border-radius:999px;font-family:Figtree,system-ui,sans-serif;font-weight:600;font-size:16px;text-decoration:none;white-space:nowrap;transition:background .2s,transform .2s,box-shadow .2s,border-color .2s;border:1.5px solid var(--line,#e2e7e4);color:var(--ink,#16211b);background:transparent} .ds-pill-line:hover{border-color:var(--ink,#16211b)} .ds-pill-line:focus-visible{outline:3px solid var(--accent,#146c46);outline-offset:3px;}"
+    },
+    {
+      "name": "Header Navigation",
+      "kind": "nav",
+      "refersTo": "header",
+      "description": "Sticky translucent header: castle mark and wordmark left, anchor links and ink pill right.",
+      "html": "<header class=\"ds-top\"><a class=\"ds-brand\" href=\"#\"><svg viewBox=\"0 0 464 407\" width=\"30\" height=\"27\" aria-hidden=\"true\"><path fill=\"#146c46\" d=\"M0 0H145V66H203V0H261V66H319V0H464V87L406 145V407H300V291A68.5 68.5 0 0 0 163 291V407H58V145L0 87Z\"/></svg>Ashford Integrations</a><nav class=\"ds-nav\"><a href=\"#\">Build</a><a href=\"#\">Teach</a><a href=\"#\">Work</a><a class=\"ds-nav-pill\" href=\"#\">Book a call</a></nav></header>",
+      "css": ".ds-top{display:flex;align-items:center;justify-content:space-between;height:76px;padding:0 24px;background:rgba(255,255,255,.92);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line,#e2e7e4);font-family:Figtree,system-ui,sans-serif;color:var(--ink,#16211b)} .ds-brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:18px;letter-spacing:-.01em;text-decoration:none;color:inherit} .ds-nav{display:flex;gap:32px;align-items:center;font-weight:500;font-size:15px} .ds-nav a{text-decoration:none;color:inherit} .ds-nav a:not(.ds-nav-pill):hover{color:var(--accent,#146c46)} .ds-nav-pill{padding:11px 18px;border-radius:999px;background:var(--ink,#16211b);color:#fff !important;font-weight:600} .ds-nav-pill:hover{background:#000} .ds-nav a:focus-visible,.ds-brand:focus-visible{outline:3px solid var(--accent,#146c46);outline-offset:3px;border-radius:999px}"
+    },
+    {
+      "name": "Status Tag",
+      "kind": "chip",
+      "refersTo": "status-tag",
+      "description": "Pill status inside table windows; green for done, amber for due.",
+      "html": "<span class=\"ds-tag\">Call booked</span> <span class=\"ds-tag ds-tag-due\">Follow up due</span>",
+      "css": ".ds-tag{display:inline-block;font-family:Figtree,system-ui,sans-serif;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--accent-tint,#e5f1ea);color:var(--accent-deep,#0e5436);transition:background .5s,color .5s} .ds-tag-due{background:var(--warn-tint,#fff4dc);color:var(--warn-ink,#7a4f00)}"
+    },
+    {
+      "name": "Table Window",
+      "kind": "card",
+      "refersTo": "window",
+      "description": "The signature illustration: a Notion-like table, always labelled Illustrative.",
+      "html": "<div class=\"ds-win\"><p class=\"ds-wt\">Pipeline <span>Illustrative example</span></p><table><tr><td>Quote, kitchen refit</td><td><span class=\"ds-wtag ds-wdue\">Follow up due</span></td></tr><tr><td>Proposal, office move</td><td><span class=\"ds-wtag\">Call booked</span></td></tr><tr><td>Tasks created</td><td>14</td></tr></table></div>",
+      "css": ".ds-win{background:#fff;border:1px solid var(--line,#e2e7e4);border-radius:14px;padding:18px 20px;font-family:Figtree,system-ui,sans-serif;color:var(--ink,#16211b);max-width:420px} .ds-wt{margin:0 0 10px;font-size:15px;font-weight:700;display:flex;justify-content:space-between;align-items:center} .ds-wt span{font-size:12px;font-weight:500;color:var(--mute,#4f5c55)} .ds-win table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums} .ds-win td{padding:10px 4px;border-top:1px solid var(--line,#e2e7e4)} .ds-win td:last-child{text-align:right} .ds-wtag{display:inline-block;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--accent-tint,#e5f1ea);color:var(--accent-deep,#0e5436)} .ds-wdue{background:var(--warn-tint,#fff4dc);color:var(--warn-ink,#7a4f00)}"
+    },
+    {
+      "name": "Feature Card",
+      "kind": "card",
+      "refersTo": "feature-card",
+      "description": "Ink card for the lead build, with a definition list.",
+      "html": "<article class=\"ds-feature\"><h3>AI operations system</h3><p>The usual starting point. Your dashboards, CRM and pipeline in one place.</p><dl><dt>Core</dt><dd>Ops dashboards, CRM, Claude in your Notion</dd><dt>Add-ons</dt><dd>Meeting notes and tasks, project trackers</dd></dl></article>",
+      "css": ".ds-feature{background:var(--ink,#16211b);color:#fff;border-radius:20px;padding:clamp(28px,3.5vw,44px);font-family:Figtree,system-ui,sans-serif;max-width:520px} .ds-feature h3{margin:0;font-size:clamp(26px,2.6vw,34px);font-weight:700;letter-spacing:-.015em;line-height:1.08} .ds-feature p{color:var(--on-ink-body,#c9d6ce);margin:12px 0 0;font-size:17px;line-height:1.55} .ds-feature dl{margin:28px 0 0;display:grid;grid-template-columns:auto 1fr;gap:14px 20px;font-size:15px} .ds-feature dt{color:var(--on-ink-label,#9fb5a8);font-weight:500} .ds-feature dd{margin:0;color:#fff}"
+    },
+    {
+      "name": "Build List Item",
+      "kind": "custom",
+      "refersTo": "icon-tile",
+      "description": "Green-wash icon tile beside a title and moss description; build list only.",
+      "html": "<article class=\"ds-item\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M21 12a9 9 0 1 1-3-6.7\"/><path d=\"M21 4v5h-5\"/><path d=\"M12 8v4l3 2\"/></svg><div><h3>Follow-up agent</h3><p>Automated follow-up for service businesses, so quotes and enquiries stop going cold.</p></div></article>",
+      "css": ".ds-item{display:grid;grid-template-columns:44px 1fr;gap:18px;align-items:center;padding:24px 0;font-family:Figtree,system-ui,sans-serif;color:var(--ink,#16211b);max-width:520px} .ds-item svg{width:44px;height:44px;padding:10px;border-radius:12px;background:var(--accent-tint,#e5f1ea);color:var(--accent,#146c46);box-sizing:border-box} .ds-item h3{margin:0;font-size:22px;font-weight:700;letter-spacing:-.015em;line-height:1.08} .ds-item p{margin:4px 0 0;font-size:16px;color:var(--mute,#4f5c55)}"
+    },
+    {
+      "name": "Marked Gap",
+      "kind": "custom",
+      "refersTo": "marked-gap",
+      "description": "Temporary placeholder for proof not yet supplied; removed when real content arrives.",
+      "html": "<div class=\"ds-gap\">To add before launch: result and quote from the client.</div>",
+      "css": ".ds-gap{border:1.5px dashed #c6cfca;border-radius:14px;padding:16px 18px;font-family:Figtree,system-ui,sans-serif;font-size:14px;color:var(--mute,#4f5c55);background:#f7f9f8;max-width:420px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Well-Kept Workspace",
+    "overview": "The page reads like a tidy, familiar workspace that someone competent has already set up for you. It is a category-standard modern agency page played straight and finished carefully: white ground, deep green-black ink, one committed green, soft grey-green bands, and a single typeface. Nothing is there to impress; everything is there to be understood by a busy owner in one pass.\n\nThe illustrative material is the product's own habitat. Instead of photography, gradients or robot imagery, the page shows small Notion-like windows: a titled table, hairline rows, status pills, tabular numbers. Each one is plainly labelled as illustrative. The one committed green does the selling (the primary pill, ticks, icon strokes, the castle mark) and the ink colour does the weight (the headline, the feature card, the closing band).\n\nDensity is relaxed and editorial. Sections breathe on generous vertical padding, content sits in a 1240px container, and headings are heavy and tightly tracked so short, plain sentences carry the page. The build refuses the generic AI look (gradients, glow, robot icons) and the stiff consultancy look (navy, serif gravitas, stock handshakes).",
+    "keyCharacteristics": [
+      "White and soft grey-green bands alternate; two ink surfaces bookend the page.",
+      "One chromatic accent, a deep committed green, plus an amber used only as a \"due\" status inside tables.",
+      "Figtree throughout, heavy (800) headings with negative tracking, 17px body.",
+      "Every action is a fully rounded pill.",
+      "Flat, hairline-bordered surfaces; only the hero illustration and the primary pill lift.",
+      "Notion-like table windows, labelled \"Illustrative\", are the only imagery besides the client logo."
+    ],
+    "rules": [
+      {
+        "name": "The One Green Rule",
+        "body": "The committed green is the only chromatic accent. Amber appears only as a status inside an illustrative table. No gradients, no glow, no second brand hue.",
+        "section": "colors"
+      },
+      {
+        "name": "The Green Ink Rule",
+        "body": "Neutrals are tinted towards the green hue (around 160 degrees). Do not introduce pure greys or pure black surfaces; the one exception is the nav pill's hover (#000).",
+        "section": "colors"
+      },
+      {
+        "name": "The One Family Rule",
+        "body": "Figtree only, in weights 400, 500, 600, 700 and 800. Hierarchy comes from size, weight and tracking, never from a second face.",
+        "section": "typography"
+      },
+      {
+        "name": "The Plain Sentence Rule",
+        "body": "Headings are short declarative sentences with a full stop. No eyebrows or kickers above them.",
+        "section": "typography"
+      },
+      {
+        "name": "The Two Shadows Rule",
+        "body": "Only the hero illustration and the primary pill lift. Cards, windows and bands stay flat with hairlines. No hard offset shadows, no glow.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Scale-With-Size Rule",
+        "body": "Larger containers get larger radii; a nested surface always has a smaller radius than its parent (panel 24 over window 14; band 28 over pill 999 is the deliberate exception, as pills are always round).",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do keep the committed green (#146c46) as the only accent, used for the primary action, ticks, icon strokes, links and focus.",
+      "Do illustrate with Notion-like table windows and label each one \"Illustrative\".",
+      "Do make every action a fully rounded pill: green for the primary, ink in the header, outline for the secondary.",
+      "Do alternate paper and soft sage bands, and keep ink surfaces to the feature card and the closing band.",
+      "Do write headings as short plain sentences in Figtree 800 with negative tracking.",
+      "Do keep surfaces flat with 1px hairlines; lift only the hero illustration and the primary pill.",
+      "Do show missing proof as a marked gap until the real result or quote is supplied.",
+      "Do collapse to one column at 900px and keep the \"Book a call\" pill visible at every width."
+    ],
+    "donts": [
+      "Don't use gradients, glow, robot or sparkle imagery, or any second brand hue.",
+      "Don't use amber outside a due status tag.",
+      "Don't add a second typeface, a serif, or a system display face.",
+      "Don't put eyebrows or kickers above headings.",
+      "Don't add shadows to cards, windows or bands, and never use hard offset shadows.",
+      "Don't present illustrative data as a client screenshot, or fill a marked gap with invented figures or quotes.",
+      "Don't turn the icon tile into a general feature-grid device; it belongs to the build list."
+    ]
+  }
+}
