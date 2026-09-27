@@ -1,0 +1,57 @@
+/* Booking page. Builds on site.css tokens. */
+.bk-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(32px,5vw,72px);align-items:start;padding-top:clamp(32px,5vw,72px);padding-bottom:clamp(64px,8vw,112px)}
+.bk-intro h1{font-size:clamp(36px,4.2vw,58px);font-weight:800;letter-spacing:-.035em;line-height:1.04;margin-top:24px}
+.bk-intro .lede{margin-top:20px}
+.bk-facts{list-style:none;display:grid;gap:12px;margin-top:28px}
+.bk-facts li{display:flex;gap:12px;align-items:flex-start}
+.bk-facts svg{width:22px;height:22px;flex:none;color:var(--accent);margin-top:2px}
+
+.bk-card{background:var(--soft);border-radius:24px;padding:clamp(14px,2vw,24px);box-shadow:0 30px 60px -30px rgba(20,40,30,.35)}
+.bk-panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:clamp(20px,2.4vw,28px)}
+.bk-panel h2{font-size:20px;font-weight:800;letter-spacing:-.02em}
+.bk-sub{font-size:14px;color:var(--mute);margin-top:4px}
+
+.bk-step{display:none}
+#booking[data-state="loading"] .bk-loading,
+#booking[data-state="pick"] .bk-pick,
+#booking[data-state="details"] .bk-details,
+#booking[data-state="done"] .bk-done,
+#booking[data-state="empty"] .bk-empty,
+#booking[data-state="offline"] .bk-offline{display:block}
+
+.bk-days{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 10px;margin-top:18px;scrollbar-width:thin}
+.bk-day{flex:none;width:64px;padding:10px 0;border:1.5px solid var(--line);border-radius:12px;background:#fff;font:inherit;cursor:pointer;display:grid;gap:2px;text-align:center;color:var(--ink);transition:border-color .2s,background .2s}
+.bk-day span{font-size:12px;color:var(--mute)}
+.bk-day b{font-size:20px;font-weight:800}
+.bk-day:hover{border-color:var(--ink)}
+.bk-day[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.bk-day[aria-pressed="true"] span{color:#c9d6ce}
+.bk-times{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px;margin-top:14px}
+.bk-time{padding:12px 0;border:1.5px solid var(--line);border-radius:999px;background:#fff;font:inherit;font-weight:600;cursor:pointer;color:var(--ink);font-variant-numeric:tabular-nums;transition:border-color .2s,background .2s,color .2s}
+.bk-time:hover{border-color:var(--accent);background:var(--accent);color:#fff}
+.bk-day:focus-visible,.bk-time:focus-visible,.bk-link:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.bk-chosen{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--accent-tint);border-radius:12px;padding:12px 14px;margin:16px 0 18px;font-weight:600;color:var(--accent-deep);font-size:15px}
+.bk-link{background:none;border:0;font:inherit;font-size:14px;color:var(--accent-deep);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:0}
+.bk-field{display:grid;gap:6px;margin-bottom:14px}
+.bk-field label{font-size:14px;font-weight:600}
+.bk-field label span{font-weight:400;color:var(--mute)}
+.bk-field input,.bk-field textarea{font:inherit;font-size:16px;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);width:100%}
+.bk-field textarea{min-height:96px;resize:vertical}
+.bk-field input:focus,.bk-field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-tint)}
+.bk-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.bk-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.bk-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:6px}
+.bk-actions .pill{border:0;cursor:pointer;font:inherit;font-weight:600}
+.bk-actions .pill:disabled{opacity:.6;cursor:wait}
+.bk-privacy{font-size:13px;color:var(--mute);margin-top:14px}
+.bk-status{font-size:14px;color:var(--mute);min-height:1.4em}
+.bk-status.err{color:#9b2c1f}
+.bk-done h2{font-size:24px}
+.bk-done p,.bk-empty p,.bk-offline p{color:var(--mute);margin-top:10px}
+.bk-done .bk-chosen{margin-top:18px}
+.bk-skel{height:56px;border-radius:12px;background:linear-gradient(90deg,#eef1ef,#f7f9f8,#eef1ef);background-size:200% 100%;margin-top:14px}
+@media (prefers-reduced-motion:no-preference){.bk-skel{animation:bkshim 1.4s ease-in-out infinite}@keyframes bkshim{to{background-position:-200% 0}}}
+
+@media (max-width:900px){.bk-wrap{grid-template-columns:1fr}}
+@media (max-width:420px){.bk-row{grid-template-columns:1fr}}
