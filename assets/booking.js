@@ -1,7 +1,7 @@
 /* Booking page: loads free slots from the Apps Script backend and submits the booking. */
 (function () {
   // Paste the deployed Apps Script web app URL here (see _booking/SETUP.md).
-  var ENDPOINT = window.ASHFORD_BOOKING_ENDPOINT || '';
+  var ENDPOINT = window.ASHFORD_BOOKING_ENDPOINT || 'https://script.google.com/macros/s/AKfycbyeicZdCrR4PBV8_VxSCwYyTZTNfREkAKTfxNythU1-ZAxDdOJMmSNhFjY_ZcxCis2Vxw/exec';
 
   var root = document.getElementById('booking');
   if (!root) return;
