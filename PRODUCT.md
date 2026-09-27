@@ -43,7 +43,7 @@ Commercial shape that may be stated: fixed prices, mostly monthly.
 
 ## Operating Context
 
-- Sales motion: email to book a 30 minute discovery call, then a written proposal. The site's one action is email to ryan@ashfordbusinessfinance.com.
+- Sales motion: email to book a 30 minute discovery call, then a written proposal. The site's one action is email to ryan@ashfordintegrations.com.
 - Delivery happens inside the client's own Notion, with Claude or ChatGPT.
 - Local and hospitality visitors respond better to the outcome than the label: "I build the systems that stop you doing the same job twice each week, and I teach your staff to use them."
 
@@ -55,7 +55,7 @@ Commercial shape that may be stated: fixed prices, mostly monthly.
 - **Out of scope, never offered:** websites of any kind (landing pages, brochure sites, custom builds, care plans, hosting, maintenance), commercial finance.
 - **Never in client-facing copy:** human sign-off as a selling point.
 - **Teach is never certification.** Never imply accreditation.
-- Contact: ryan@ashfordbusinessfinance.com, 07493 807 783. Footer line: "Ashford Integrations is a trading name of Ashford Business Finance Ltd."
+- Contact: ryan@ashfordintegrations.com, 07493 807 783. Footer line: "Ashford Integrations is a trading name of Ashford Business Finance Ltd."
 
 ## Brand Commitments
 

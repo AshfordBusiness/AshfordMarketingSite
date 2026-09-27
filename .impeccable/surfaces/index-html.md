@@ -9,7 +9,7 @@ related_targets: []
 
 Scope: the single-page marketing site at www.ashfordintegrations.com. Mode: Persuade.
 Audience: UK SME owners and managers (primary); people wanting to learn AI (secondary).
-Action: email ryan@ashfordbusinessfinance.com to book a 30 minute call.
+Action: email ryan@ashfordintegrations.com to book a 30 minute call.
 Proof: Coach Logic and Hillend Tavern named with permission; results and quotes pending from Ryan, shown as marked gaps until supplied.
 Constraints: no prices, no web design offer, no certification claims, no invented results.
 Chosen direction: the standing exit (category standard, played straight), chosen by Ryan on 25 Sep 2026 from three mock-ups after a degraded roll (seed 4bfa3a5f, no challengers).
