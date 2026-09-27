@@ -36,9 +36,10 @@
 .bk-field{display:grid;gap:6px;margin-bottom:14px}
 .bk-field label{font-size:14px;font-weight:600}
 .bk-field label span{font-weight:400;color:var(--mute)}
-.bk-field input,.bk-field textarea{font:inherit;font-size:16px;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);width:100%}
+.bk-field input,.bk-field textarea,.bk-field select{font:inherit;font-size:16px;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);width:100%}
 .bk-field textarea{min-height:96px;resize:vertical}
-.bk-field input:focus,.bk-field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-tint)}
+.bk-field select{appearance:none;-webkit-appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%2316211b' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 14px center;padding-right:38px;cursor:pointer}
+.bk-field input:focus,.bk-field textarea:focus,.bk-field select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-tint)}
 .bk-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .bk-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .bk-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:6px}

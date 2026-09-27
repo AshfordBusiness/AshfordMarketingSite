@@ -48,7 +48,7 @@ After editing, click **Deploy**, then **Manage deployments**. Click the pencil, 
 2. A new row goes into Sales Pipeline:
    - **Stage** is set to Discovery and **Lead Source** to Website.
    - **Next Action Date** is set to the call time.
-   - The contact details and their answer go in **Notes** and the page body.
+   - The contact details, team size, current systems and their answer go in **Notes** and the page body.
 3. The visitor gets a confirmation email from you.
 4. You get a "New booking" email.
 5. The visitor gets a reminder email 24 hours before the call, unless you've cancelled the event.

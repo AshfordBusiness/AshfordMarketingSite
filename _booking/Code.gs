@@ -123,6 +123,8 @@ function createEvent_(d, start, end) {
     'Email: ' + d.email,
     d.company ? 'Company: ' + d.company : '',
     d.phone ? 'Phone: ' + d.phone : '',
+    'Team size: ' + (d.team || '(not given)'),
+    'Systems they use now: ' + (d.systems || '(not given)'),
     '',
     'The job that eats their week:',
     d.job || '(not given)'
@@ -156,11 +158,12 @@ function addToNotion_(d, start, meetLink) {
       'Lead Source': { select: { name: 'Website' } },
       'Next Action': { rich_text: text('Discovery call (booked on website)') },
       'Next Action Date': { date: { start: start.toISOString() } },
-      'Notes': { rich_text: text(d.name + ' <' + d.email + '>' + (d.phone ? ', ' + d.phone : '') + '. Job: ' + (d.job || '')) }
+      'Notes': { rich_text: text(d.name + ' <' + d.email + '>' + (d.phone ? ', ' + d.phone : '') + '. Team: ' + (d.team || '-') + '. Systems: ' + (d.systems || '-') + '. Job: ' + (d.job || '')) }
     },
     children: [
       { object: 'block', type: 'paragraph', paragraph: { rich_text: text('Booked on the website for ' + fmt_(start) + (meetLink ? '. Meet: ' + meetLink : '')) } },
       { object: 'block', type: 'paragraph', paragraph: { rich_text: text('Contact: ' + d.name + ', ' + d.email + (d.phone ? ', ' + d.phone : '') + (d.company ? ', ' + d.company : '')) } },
+      { object: 'block', type: 'paragraph', paragraph: { rich_text: text('Team size: ' + (d.team || '(not given)') + '. Systems they use now: ' + (d.systems || '(not given)')) } },
       { object: 'block', type: 'paragraph', paragraph: { rich_text: text('The job that eats their week: ' + (d.job || '(not given)')) } }
     ]
   };
@@ -220,6 +223,8 @@ function notifyOwner_(d, start, meetLink, notionUrl) {
     'Email: ' + d.email,
     'Company: ' + (d.company || '-'),
     'Phone: ' + (d.phone || '-'),
+    'Team size: ' + (d.team || '-'),
+    'Systems: ' + (d.systems || '-'),
     'Job: ' + (d.job || '-'),
     meetLink ? 'Meet: ' + meetLink : '',
     notionUrl ? 'Notion: ' + notionUrl : 'Notion: not written (check NOTION_TOKEN / NOTION_DATABASE_ID)'
@@ -281,7 +286,8 @@ function validate_(d) {
   if (!d.name || String(d.name).trim().length < 2) return 'Please add your name.';
   if (!d.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) return 'Please add a valid email address.';
   if (!d.start || isNaN(new Date(d.start).getTime())) return 'Please pick a time.';
-  ['name', 'company', 'phone', 'job'].forEach(k => { if (d[k]) d[k] = String(d[k]).trim().slice(0, k === 'job' ? 1500 : 120); });
+  if (!d.team) return 'Please choose your team size.';
+  ['name', 'company', 'phone', 'team', 'systems', 'job'].forEach(k => { if (d[k]) d[k] = String(d[k]).trim().slice(0, k === 'job' ? 1500 : (k === 'systems' ? 300 : 120)); });
   return '';
 }
 
