@@ -9,7 +9,7 @@
   var hero = [].slice.call(document.querySelectorAll('.hero > div:first-child > *, .hero .panel, .cs-hero > *, .bk-intro > *, .bk-card'));
   hero.forEach(function (el, i) {
     el.classList.add('rv');
-    el.style.transitionDelay = (i * 110) + 'ms';
+    el.style.transitionDelay = (i * 82) + 'ms';
   });
   requestAnimationFrame(function () { requestAnimationFrame(function () {
     hero.forEach(function (el) { el.classList.add('rv-in'); });
@@ -27,7 +27,7 @@
   items.forEach(function (el) {
     var sibs = [].filter.call(el.parentNode.children, function (c) { return items.indexOf(c) !== -1; });
     var i = sibs.indexOf(el);
-    if (i > 0) el.style.transitionDelay = Math.min(i, 6) * 120 + 'ms';
+    if (i > 0) el.style.transitionDelay = Math.min(i, 6) * 90 + 'ms';
     el.classList.add('rv');
   });
 
@@ -35,7 +35,7 @@
     entries.forEach(function (e) {
       if (e.isIntersecting) { e.target.classList.add('rv-in'); io.unobserve(e.target); }
     });
-  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.05 });
+  }, { rootMargin: '0px 0px -9% 0px', threshold: 0.05 });
 
   items.forEach(function (el) { io.observe(el); });
 })();
