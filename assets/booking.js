@@ -19,6 +19,10 @@
     statusEl.classList.toggle('err', !!isError);
   }
 
+  // Pre-select the topic when arriving from a specific button, e.g. /book/?topic=training
+  var topicParam = (location.search.match(/[?&]topic=([^&]+)/) || [])[1];
+  if (topicParam === 'training') document.getElementById('bk-topic').value = 'AI training';
+
   if (!ENDPOINT) { setState('offline'); return; }
 
   fetch(ENDPOINT + '?action=slots')

@@ -119,6 +119,7 @@ function createEvent_(d, start, end) {
   const description = [
     'Booked through ashfordintegrations.com',
     '',
+    'About: ' + (d.topic || '(not given)'),
     'Name: ' + d.name,
     'Email: ' + d.email,
     d.company ? 'Company: ' + d.company : '',
@@ -131,7 +132,7 @@ function createEvent_(d, start, end) {
   ].filter(x => x !== null).join('\n');
 
   const resource = {
-    summary: CONFIG.eventTitle + ' with ' + d.name + (d.company ? ' (' + d.company + ')' : ''),
+    summary: (d.topic === 'AI training' ? 'AI training call: Ashford Integrations' : CONFIG.eventTitle) + ' with ' + d.name + (d.company ? ' (' + d.company + ')' : ''),
     description: description,
     start: { dateTime: start.toISOString(), timeZone: CONFIG.timeZone },
     end: { dateTime: end.toISOString(), timeZone: CONFIG.timeZone },
@@ -158,9 +159,10 @@ function addToNotion_(d, start, meetLink) {
       'Lead Source': { select: { name: 'Website' } },
       'Next Action': { rich_text: text('Discovery call (booked on website)') },
       'Next Action Date': { date: { start: start.toISOString() } },
-      'Notes': { rich_text: text(d.name + ' <' + d.email + '>' + (d.phone ? ', ' + d.phone : '') + '. Team: ' + (d.team || '-') + '. Systems: ' + (d.systems || '-') + '. Job: ' + (d.job || '')) }
+      'Notes': { rich_text: text('[' + (d.topic || 'Call') + '] ' + d.name + ' <' + d.email + '>' + (d.phone ? ', ' + d.phone : '') + '. Team: ' + (d.team || '-') + '. Systems: ' + (d.systems || '-') + '. Job: ' + (d.job || '')) }
     },
     children: [
+      { object: 'block', type: 'paragraph', paragraph: { rich_text: text('About: ' + (d.topic || '(not given)')) } },
       { object: 'block', type: 'paragraph', paragraph: { rich_text: text('Booked on the website for ' + fmt_(start) + (meetLink ? '. Meet: ' + meetLink : '')) } },
       { object: 'block', type: 'paragraph', paragraph: { rich_text: text('Contact: ' + d.name + ', ' + d.email + (d.phone ? ', ' + d.phone : '') + (d.company ? ', ' + d.company : '')) } },
       { object: 'block', type: 'paragraph', paragraph: { rich_text: text('Team size: ' + (d.team || '(not given)') + '. Systems they use now: ' + (d.systems || '(not given)')) } },
@@ -201,12 +203,12 @@ function sendConfirmation_(d, start, meetLink) {
   const html = emailShell_(
     'Your call is booked',
     '<p>Hi ' + esc_(first) + ',</p>' +
-    '<p>Thanks for booking a discovery call with Ashford Integrations. Here are the details:</p>' +
+    '<p>Thanks for booking ' + (d.topic === 'AI training' ? 'a call about AI training' : 'a discovery call') + ' with Ashford Integrations. Here are the details:</p>' +
     detailRow_('When', fmt_(start) + ' (UK time)') +
     detailRow_('Length', CONFIG.callMinutes + ' minutes') +
     detailRow_('Where', meetLink ? '<a href="' + meetLink + '">Google Meet</a>' : 'Google Meet link in your calendar invite') +
     '<p>A calendar invite is on its way separately. We will send a reminder the day before.</p>' +
-    '<p>Before the call, have a think about the job your team repeats every week. That is where we will start.</p>' +
+    (d.topic === 'AI training' ? '<p>Before the call, have a think about who needs training and what they would most like to be able to do.</p>' : '<p>Before the call, have a think about the job your team repeats every week. That is where we will start.</p>') +
     '<p>Need to change the time? Just reply to this email.</p>' +
     '<p>' + CONFIG.owner + '<br>Ashford Integrations</p>'
   );
@@ -219,6 +221,7 @@ function notifyOwner_(d, start, meetLink, notionUrl) {
     'New discovery call booked on the website.',
     '',
     'When: ' + fmt_(start),
+    'About: ' + (d.topic || '-'),
     'Name: ' + d.name,
     'Email: ' + d.email,
     'Company: ' + (d.company || '-'),
@@ -229,7 +232,7 @@ function notifyOwner_(d, start, meetLink, notionUrl) {
     meetLink ? 'Meet: ' + meetLink : '',
     notionUrl ? 'Notion: ' + notionUrl : 'Notion: not written (check NOTION_TOKEN / NOTION_DATABASE_ID)'
   ].join('\n');
-  GmailApp.sendEmail(me, 'New booking: ' + d.name + ', ' + fmt_(start), body, { name: 'Website bookings' });
+  GmailApp.sendEmail(me, 'New booking (' + (d.topic || 'call') + '): ' + d.name + ', ' + fmt_(start), body, { name: 'Website bookings' });
 }
 
 /* ---------- reminders ---------- */
@@ -287,6 +290,7 @@ function validate_(d) {
   if (!d.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) return 'Please add a valid email address.';
   if (!d.start || isNaN(new Date(d.start).getTime())) return 'Please pick a time.';
   if (!d.team) return 'Please choose your team size.';
+  if (d.topic !== 'AI training') d.topic = 'Building a system'; // default keeps older page versions working
   ['name', 'company', 'phone', 'team', 'systems', 'job'].forEach(k => { if (d[k]) d[k] = String(d[k]).trim().slice(0, k === 'job' ? 1500 : (k === 'systems' ? 300 : 120)); });
   return '';
 }
