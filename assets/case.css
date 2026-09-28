@@ -77,7 +77,7 @@
 .gcard{border:1px solid #eef1ef;border-radius:8px;overflow:hidden}
 .gcard .cov{height:34px;background:#e4ebe7}
 .gcard .r{margin:8px;width:70%}
-.board{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.board{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
 .lane b{display:flex;justify-content:space-between;font-size:11px;font-weight:700;margin-bottom:8px;color:var(--ink)}
 .lane b em{font-style:normal;color:var(--mute);font-weight:500}
 .card-s{background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px;margin-bottom:6px}
