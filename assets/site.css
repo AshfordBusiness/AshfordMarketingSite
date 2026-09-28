@@ -129,6 +129,37 @@ section{padding:clamp(64px,9vw,120px) 0}
 footer{padding:36px 0 44px;font-size:14px;color:var(--mute)}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
+/* hero mock-up, modelled on the case study mock-ups */
+.hm-page{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.hm-bar{display:flex;gap:6px;padding:11px 16px;border-bottom:1px solid var(--line);align-items:center}
+.hm-bar i{width:9px;height:9px;border-radius:50%;background:#dfe5e2}
+.hm-bar span{margin-left:10px;font-size:13px;color:var(--mute)}
+.hm-body{padding:14px}
+.hm-box{border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.hm-cols{display:grid;grid-template-columns:1.15fr 1fr;gap:12px;margin-top:12px}
+.hm-lbl{font-size:13px;font-weight:700;color:var(--mute);margin-bottom:10px}
+.hm-pcols{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.hm-pc{display:grid;gap:6px;text-align:center;font-size:11px;color:var(--mute);min-width:0}
+.hm-pc i{display:flex;align-items:flex-end;height:58px;border-radius:6px;background:#f3f5f4}
+.hm-pc b{display:block;width:100%;border-radius:6px;background:#7fb89c}
+.hm-pc b.won{background:var(--accent)}
+.hm-pc b.lost{background:#b9c4bf}
+.hm-pc span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hm-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid #eef1ef;font-size:13px}
+.hm-t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink)}
+.hm-cb{width:13px;height:13px;border:1.5px solid #b9c4bf;border-radius:3px;flex:none;transition:border-color .4s}
+.hm-chip{font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.hm-chip.hi{background:#fde6e3;color:#a3261a}
+.hm-chip.md{background:#fcf1c4;color:#6f5300}
+.hm-chip.lo{background:#edf0ee;color:#4f5c55}
+.hm-row.done .hm-cb{border-color:var(--ink);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2l2.3 2.3 4.7-5' fill='none' stroke='%2316211b' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat}
+.hm-row.done .hm-t{color:var(--mute);text-decoration:line-through}
+.hm-q{font-size:14px;color:var(--ink);border-top:1px solid #eef1ef;padding-top:8px}
+.hm-a{font-size:12px;color:var(--mute);margin-top:6px}
+.hm-flow{display:flex;align-items:center;gap:4px;margin-top:14px;font-size:11px}
+.hm-flow b{background:var(--accent-tint);color:var(--accent-deep);padding:3px 8px;border-radius:999px;font-weight:600}
+.hm-flow span{color:var(--mute)}
+
 /* motion: one moment, the pipeline tag flips once the page settles */
 
 
@@ -138,6 +169,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   .list{grid-template-rows:none}
   .steps{grid-template-columns:1fr;gap:28px}
   .row2{grid-template-columns:1fr}
+  .hm-cols{grid-template-columns:1fr}
+  .hm-pcols{grid-template-columns:repeat(5,1fr)}.hm-pc:nth-child(6){display:none}.hm-pc{font-size:10px}
   .close{align-items:start}
 }
 @media (max-width:420px){

@@ -29,7 +29,7 @@
 {"@context":"https://schema.org","@type":"WebSite","name":"Ashford Integrations","url":"https://www.ashfordintegrations.com/"}
 </script>
 <link rel="preload" href="assets/fonts/figtree-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/site.css?v=202609272109">
+<link rel="stylesheet" href="assets/site.css?v=202609281900">
 </head>
 <body>
 
@@ -61,28 +61,30 @@
     </div>
 
     <div class="panel" aria-label="Illustrative example of an AI operations system">
-      <div class="win">
-        <p class="wt">Pipeline <span>Illustrative example</span></p>
-        <table>
-          <tr><td>Quote, kitchen refit</td><td><span class="tag due" id="flip">Follow up due</span></td></tr>
-          <tr><td>Enquiry, private hire</td><td><span class="tag due">Follow up Tue</span></td></tr>
-          <tr><td>Proposal, office move</td><td><span class="tag">Call booked</span></td></tr>
-        </table>
-      </div>
-      <div class="row2">
-        <div class="win">
-          <p class="wt">This week</p>
-          <table>
-            <tr><td>Meeting notes filed</td><td>6</td></tr>
-            <tr><td>Tasks created</td><td>14</td></tr>
-          </table>
+      <div class="hm-page">
+        <div class="hm-bar"><i></i><i></i><i></i><span>AI Operations System</span></div>
+        <div class="hm-body">
+          <div class="hm-box">
+            <p class="hm-lbl">Sales pipeline</p>
+            <div class="hm-pcols"><div class="hm-pc"><i><b style="height:48%"></b></i><span>Discovery</span></div><div class="hm-pc"><i><b style="height:82%"></b></i><span>Lead</span></div><div class="hm-pc"><i><b style="height:36%"></b></i><span>Contacted</span></div><div class="hm-pc"><i><b style="height:64%"></b></i><span>Proposed</span></div><div class="hm-pc"><i><b class="won" style="height:42%"></b></i><span>Won</span></div><div class="hm-pc"><i><b class="lost" style="height:22%"></b></i><span>Lost</span></div></div>
+          </div>
+          <div class="hm-cols">
+            <div class="hm-box">
+              <p class="hm-lbl">Tasks to do</p>
+              <div class="hm-row" id="flip"><span class="hm-cb"></span><span class="hm-t">Send kitchen refit quote</span><span class="hm-chip hi">High</span></div>
+              <div class="hm-row"><span class="hm-cb"></span><span class="hm-t">Follow up private hire</span><span class="hm-chip md">Medium</span></div>
+              <div class="hm-row"><span class="hm-cb"></span><span class="hm-t">Book office move call</span><span class="hm-chip lo">Low</span></div>
+            </div>
+            <div class="hm-box">
+              <p class="hm-lbl">Ask your system</p>
+              <p class="hm-q">What did we agree on the refit call?</p>
+              <p class="hm-a">Answered from your own meeting notes.</p>
+              <div class="hm-flow"><b>Call</b><span>&rarr;</span><b>Notes</b><span>&rarr;</span><b>Tasks</b></div>
+            </div>
+          </div>
         </div>
-        <div class="win">
-          <p class="wt">Ask your notes</p>
-          <div class="ask"><q>What did we quote for the kitchen refit?</q><small>Answered from your own material.</small></div>
-        </div>
       </div>
-      <p class="note">Illustrative data, not a client screenshot.</p>
+      <p class="note">Illustrative example, not a client screenshot.</p>
     </div>
   </div>
 
@@ -222,7 +224,7 @@
     window.addEventListener('scroll',onScroll,{passive:true});onScroll();
     var tag=document.getElementById('flip');
     if(tag && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-      setTimeout(function(){tag.classList.remove('due');tag.textContent='Followed up';},1800);
+      setTimeout(function(){tag.classList.add('done');},1800);
     }
   })();
 </script>
