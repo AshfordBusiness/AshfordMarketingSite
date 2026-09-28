@@ -1,0 +1,4 @@
+# Keep internal notes off the public site
+exclude:
+  - PRODUCT.md
+  - DESIGN.md
