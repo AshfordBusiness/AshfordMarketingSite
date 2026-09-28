@@ -68,6 +68,7 @@
 .chip.g{background:#edf0ee;color:#4f5c55}
 .chip.hi{background:#fde6e3;color:#a3261a}
 .chip.md{background:#fcf1c4;color:#6f5300}
+.trend{display:block;width:100%;height:70px}
 .pcols{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
 .pc{display:grid;gap:6px;text-align:center;font-size:11px;color:var(--mute);min-width:0}
 .pc i{display:flex;align-items:flex-end;height:64px;border-radius:6px;background:#f3f5f4}
