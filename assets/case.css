@@ -85,12 +85,6 @@
 .gcard{border:1px solid #eef1ef;border-radius:8px;overflow:hidden}
 .gcard .cov{height:34px;background:#e4ebe7}
 .gcard .r{margin:8px;width:70%}
-.board{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
-.lane b{display:flex;justify-content:space-between;font-size:11px;font-weight:700;margin-bottom:8px;color:var(--ink)}
-.lane b em{font-style:normal;color:var(--mute);font-weight:500}
-.card-s{background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px;margin-bottom:6px}
-.card-s .r{display:block;width:80%;margin-bottom:6px}
-.card-s .chip{font-size:10px}
 .props{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:12px;align-items:center;margin-bottom:14px}
 .props dt{color:var(--mute)}
 .props dd{margin:0}
@@ -125,7 +119,6 @@
   .results,.two,.part,.small-parts,.principles,.outcomes{grid-template-columns:1fr}
   .part:nth-child(even){grid-template-columns:1fr}
   .part:nth-child(even) .part-text{order:0}
-  .board{grid-template-columns:repeat(3,1fr)}.board .lane:nth-child(n+4){display:none}
   .pipe{grid-template-columns:repeat(3,1fr)}
   .ba{font-size:15px}.ba th,.ba td{padding:12px 14px}
 }
