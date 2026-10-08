@@ -218,7 +218,7 @@ function sendConfirmation_(d, start, meetLink) {
     '<p>Need to change the time? Just reply to this email.</p>' +
     '<p>' + CONFIG.owner + '<br>Ashford Integrations</p>'
   );
-  GmailApp.sendEmail(d.email, 'Booked: your call with Ashford Integrations, ' + fmt_(start), plain_(html), { htmlBody: html, name: CONFIG.fromName });
+  GmailApp.sendEmail(d.email, 'Booked: your call with Ashford Integrations, ' + fmt_(start), plain_(html), { htmlBody: html, name: CONFIG.fromName, replyTo: 'ryan@ashfordintegrations.com' });
 }
 
 function notifyOwner_(d, start, meetLink, notionUrl) {
@@ -271,7 +271,7 @@ function sendDueReminders() {
           '<p>If the time no longer works, reply to this email and we will find another.</p>' +
           '<p>' + CONFIG.owner + '<br>Ashford Integrations</p>'
         );
-        GmailApp.sendEmail(r.email, 'Reminder: your call with Ashford Integrations, ' + fmt_(new Date(r.start)), plain_(html), { htmlBody: html, name: CONFIG.fromName });
+        GmailApp.sendEmail(r.email, 'Reminder: your call with Ashford Integrations, ' + fmt_(new Date(r.start)), plain_(html), { htmlBody: html, name: CONFIG.fromName, replyTo: 'ryan@ashfordintegrations.com' });
       }
       r.sent = true;
     }
