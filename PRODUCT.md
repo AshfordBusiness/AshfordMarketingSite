@@ -51,6 +51,7 @@ Commercial shape that may be stated: fixed prices, mostly monthly.
 
 - Static site, GitHub Pages, custom domain www.ashfordintegrations.com (`CNAME`). Deploys from `main` on merge.
 - `p/foresters-arms/` and `p/the-star/` are unlisted (`noindex`) pitch pages for prospects. Not part of the homepage; leave untouched.
+- `p/showcase/` is the unlisted (`noindex`) System Showcase, used in consultations and sent to prospects by link. It is the one page that shows prices, which is why it stays unlisted and out of the navigation. It is built from `ABF/Sales/System Showcase/ashford-system-showcase.html` by `build-site-page.py` in the Ashford project folder: edit the source, then rebuild. Its Save button writes to the Notion Showcase Builds database through the booking Apps Script (`_booking/SETUP.md`). It keeps its human sign-off lines ("You stay in control", "your team checks what it creates"): an approved exception to the no-sign-off rule below (Ryan, 8 Oct 2026).
 - **No prices on the site.** Pricing is unvalidated and unpublishable (What We Do, 24 Sep 2026). The rate card in `Ashford_Pricing_Model.xlsx` is internal only.
 - **Out of scope, never offered:** websites of any kind (landing pages, brochure sites, custom builds, care plans, hosting, maintenance), commercial finance.
 - **Never in client-facing copy:** human sign-off as a selling point.

@@ -52,3 +52,25 @@ After editing, click **Deploy**, then **Manage deployments**. Click the pencil, 
 3. The visitor gets a confirmation email from you.
 4. You get a "New booking" email.
 5. The visitor gets a reminder email 24 hours before the call, unless you've cancelled the event.
+
+## System Showcase saves (about 5 minutes, once)
+The unlisted page `/p/showcase/` saves each build into the Notion **Showcase Builds** database through this same script. A save from the page creates a row; saving again from the same browser updates that row.
+
+1. In Notion, open **Ashford CRM System**, then **Showcase Builds**. Click **•••**, then **Connections**, and add `Website bookings`.
+2. In Apps Script, open **Project Settings**, then **Script Properties**, and add:
+
+| Property | Value |
+|---|---|
+| `SHOWCASE_DATABASE_ID` | `969829951a4d4ee4a84b53bf8ac7621b` |
+
+3. Back in the **Editor**, replace all of the code with the latest `Code.gs` from this folder and click **Save**.
+4. Choose `testShowcase` and click **Run**. A row called "TEST, delete me" appears in Showcase Builds, and you get a "New showcase build" email. Delete the row.
+5. Click **Deploy**, then **Manage deployments**. Click the pencil, set **Version** to **New version**, then click **Deploy**. The URL stays the same, so the booking page keeps working.
+
+### What happens on each showcase save
+- **Name** is the business. **Systems** lists every system switched on, **Included** the first two, **Extra systems** the rest.
+- **Build total** and **Monthly** are worked out by the script (£1,650 for the Brain and two systems, £300 per extra system, £265 a month to run and maintain), never taken from the page.
+- **Additional information**, **Contact** and **Email** come from the form at the bottom of the page. **Last saved** is the time of the latest save.
+- A new row starts at **Status** New and links to its **Deal** in Sales Pipeline when exactly one deal title contains the business name. Saving again never changes Status or Deal.
+- You get one email per new build. Updates do not email.
+- Each row has an **Edit key**. Only the browser that created a build can update it; leave the key alone.

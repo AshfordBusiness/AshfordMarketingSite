@@ -8,10 +8,15 @@
  *                           Sales Pipeline, emails a confirmation, and queues a
  *                           reminder 24 hours before the call.
  *
+ * It also saves builds from the System Showcase (/p/showcase/):
+ *   POST {kind:'showcase', ...} -> creates or updates a row in the Notion
+ *                                  Showcase Builds database
+ *
  * Setup steps are in _booking/SETUP.md. Secrets live in Script Properties,
  * never in this file:
- *   NOTION_TOKEN        internal integration secret (starts "ntn_" or "secret_")
- *   NOTION_DATABASE_ID  Sales Pipeline database id
+ *   NOTION_TOKEN           internal integration secret (starts "ntn_" or "secret_")
+ *   NOTION_DATABASE_ID     Sales Pipeline database id
+ *   SHOWCASE_DATABASE_ID   Showcase Builds database id
  */
 
 const CONFIG = {
@@ -46,6 +51,7 @@ function doPost(e) {
     return json_({ ok: false, error: 'Bad request.' });
   }
   if (data.website) return json_({ ok: true }); // honeypot filled: silently drop bots
+  if (data.kind === 'showcase') return json_(saveShowcase_(data));
 
   const v = validate_(data);
   if (v) return json_({ ok: false, error: v });
@@ -283,6 +289,167 @@ function stillBooked_(eventId) {
   }
 }
 
+/* ---------- System Showcase saves ---------- */
+// Each build is one row in the Notion Showcase Builds database. Saving again updates
+// the same row, but only when the page sends back the edit key from its first save,
+// so nobody can overwrite a build they did not start. Prices are worked out here,
+// never trusted from the page.
+
+const SHOWCASE = {
+  systems: ['AI Meeting Notes', 'Tasks & Projects', 'Custom CRM', 'Content Creation', 'Custom Dashboards'],
+  included: 2,          // systems covered by the core build
+  corePrice: 1650,      // the Brain plus the two included systems
+  extraPrice: 300,      // each system after that
+  maintainPrice: 265,   // run and maintain, per month
+  maxSavesPer10Min: 40  // across the whole site, to blunt spam
+};
+
+function saveShowcase_(d) {
+  const props = PropertiesService.getScriptProperties();
+  const token = props.getProperty('NOTION_TOKEN');
+  const db = props.getProperty('SHOWCASE_DATABASE_ID');
+  if (!token || !db) return { ok: false, error: 'Saving is not switched on yet. Please email ryan@ashfordintegrations.com.' };
+
+  const v = validateShowcase_(d);
+  if (v) return { ok: false, error: v };
+  if (showcaseBusy_()) return { ok: false, error: 'Lots of saves just now. Please try again in a few minutes.' };
+
+  const lock = LockService.getScriptLock();
+  if (!lock.tryLock(20000)) return { ok: false, error: 'Busy, please try again.' };
+  try {
+    const properties = showcaseProps_(d);
+
+    if (d.id && d.key) {
+      const page = notionGet_(token, 'pages/' + d.id);
+      if (page && !page.archived && page.parent && sameId_(page.parent.database_id, db) && editKeyOf_(page) === d.key) {
+        const res = notionRequest_(token, 'patch', 'pages/' + d.id, { properties: properties });
+        if (res.getResponseCode() < 300) return { ok: true, id: d.id, key: d.key, updated: true };
+        console.error('Showcase update failed: ' + res.getContentText());
+        return { ok: false, error: 'Could not save just now. Please try again.' };
+      }
+      // Deleted, unknown or not this page's row: start a new one instead.
+    }
+
+    const key = Utilities.getUuid();
+    properties['Edit key'] = { rich_text: notionText_(key) };
+    properties['Status'] = { select: { name: 'New' } };
+    const deal = matchDeal_(token, d.business);
+    if (deal) properties['Deal'] = { relation: [{ id: deal }] };
+
+    const res = notionRequest_(token, 'post', 'pages', { parent: { database_id: db }, properties: properties });
+    if (res.getResponseCode() >= 300) {
+      console.error('Showcase create failed: ' + res.getContentText());
+      return { ok: false, error: 'Could not save just now. Please try again, or email ryan@ashfordintegrations.com.' };
+    }
+    const page = JSON.parse(res.getContentText());
+    try { notifyShowcase_(d, page.url, !!deal); } catch (err) { console.error('Showcase email: ' + err); }
+    return { ok: true, id: page.id, key: key, created: true };
+  } catch (err) {
+    console.error(err);
+    return { ok: false, error: 'Something went wrong. Please email ryan@ashfordintegrations.com.' };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function validateShowcase_(d) {
+  d.business = String(d.business || '').trim().slice(0, 120);
+  d.name = String(d.name || '').trim().slice(0, 120);
+  d.email = String(d.email || '').trim().slice(0, 160);
+  d.notes = String(d.notes || '').trim().slice(0, 6000);
+  d.maintain = d.maintain === true;
+  d.systems = (Array.isArray(d.systems) ? d.systems : [])
+    .filter((s, i, all) => SHOWCASE.systems.indexOf(s) > -1 && all.indexOf(s) === i);
+  d.id = /^[0-9a-f-]{32,36}$/i.test(String(d.id || '')) ? String(d.id) : '';
+  d.key = /^[0-9a-f-]{36}$/i.test(String(d.key || '')) ? String(d.key) : '';
+  if (d.business.length < 2) return 'Please add the business name.';
+  if (d.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) return 'Please check the email address.';
+  return '';
+}
+
+function showcaseTotal_(d) {
+  return SHOWCASE.corePrice + Math.max(0, d.systems.length - SHOWCASE.included) * SHOWCASE.extraPrice;
+}
+
+function showcaseProps_(d) {
+  return {
+    'Name': { title: notionText_(d.business) },
+    'Contact': { rich_text: notionText_(d.name) },
+    'Email': { email: d.email || null },
+    'Systems': { multi_select: d.systems.map(n => ({ name: n })) },
+    'Included': { multi_select: d.systems.slice(0, SHOWCASE.included).map(n => ({ name: n })) },
+    'Extra systems': { number: Math.max(0, d.systems.length - SHOWCASE.included) },
+    'Build total': { number: showcaseTotal_(d) },
+    'Run and maintain': { checkbox: d.maintain },
+    'Monthly': { number: d.maintain ? SHOWCASE.maintainPrice : 0 },
+    'Additional information': { rich_text: notionText_(d.notes) },
+    'Last saved': { date: { start: new Date().toISOString() } }
+  };
+}
+
+// Links a new build to its Sales Pipeline deal when exactly one deal title contains the business name.
+function matchDeal_(token, business) {
+  const pipeline = PropertiesService.getScriptProperties().getProperty('NOTION_DATABASE_ID');
+  if (!pipeline || !business) return '';
+  const res = notionRequest_(token, 'post', 'databases/' + pipeline + '/query', {
+    filter: { property: 'Deal', title: { contains: business.slice(0, 80) } },
+    page_size: 2
+  });
+  if (res.getResponseCode() >= 300) { console.error('Deal match: ' + res.getContentText()); return ''; }
+  const rows = JSON.parse(res.getContentText()).results || [];
+  return rows.length === 1 ? rows[0].id : '';
+}
+
+function notifyShowcase_(d, url, linked) {
+  const me = Session.getEffectiveUser().getEmail();
+  const pounds = n => '£' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const body = [
+    'A new build was saved from the System Showcase.',
+    '',
+    'Business: ' + d.business,
+    'Contact: ' + (d.name || '-') + (d.email ? ' <' + d.email + '>' : ''),
+    'Systems: ' + (d.systems.join(', ') || 'none yet'),
+    'Build total: ' + pounds(showcaseTotal_(d)) + (d.maintain ? ' + ' + pounds(SHOWCASE.maintainPrice) + '/mo run and maintain' : ''),
+    'Additional information: ' + (d.notes || '-'),
+    '',
+    'Notion: ' + url + (linked ? ' (linked to the matching deal)' : '')
+  ].join('\n');
+  GmailApp.sendEmail(me, 'New showcase build: ' + d.business, body, { name: 'Website showcase' });
+}
+
+function showcaseBusy_() {
+  const cache = CacheService.getScriptCache();
+  const n = Number(cache.get('showcase-saves') || 0) + 1;
+  cache.put('showcase-saves', String(n), 600);
+  return n > SHOWCASE.maxSavesPer10Min;
+}
+
+// Rich text in chunks, because Notion caps one text object at 2,000 characters.
+function notionText_(s) {
+  s = String(s || '');
+  const out = [];
+  for (let i = 0; i < s.length && out.length < 50; i += 1900) out.push({ type: 'text', text: { content: s.slice(i, i + 1900) } });
+  return out;
+}
+
+function notionGet_(token, path) {
+  const res = notionRequest_(token, 'get', path);
+  return res.getResponseCode() < 300 ? JSON.parse(res.getContentText()) : null;
+}
+
+function notionRequest_(token, method, path, body) {
+  const opts = { method: method, headers: { Authorization: 'Bearer ' + token, 'Notion-Version': '2022-06-28' }, muteHttpExceptions: true };
+  if (body) { opts.contentType = 'application/json'; opts.payload = JSON.stringify(body); }
+  return UrlFetchApp.fetch('https://api.notion.com/v1/' + path, opts);
+}
+
+function sameId_(a, b) { return String(a || '').replace(/-/g, '') === String(b || '').replace(/-/g, ''); }
+
+function editKeyOf_(page) {
+  const p = page.properties && page.properties['Edit key'];
+  return p && p.rich_text ? p.rich_text.map(t => t.plain_text).join('') : '';
+}
+
 /* ---------- helpers ---------- */
 
 function validate_(d) {
@@ -328,6 +495,12 @@ function plain_(html) {
 function installReminderTrigger() {
   ScriptApp.getProjectTriggers().forEach(t => { if (t.getHandlerFunction() === 'sendDueReminders') ScriptApp.deleteTrigger(t); });
   ScriptApp.newTrigger('sendDueReminders').timeBased().everyHours(1).create();
+}
+
+// Run to check the showcase saves without opening the website. Delete the test row after.
+function testShowcase() {
+  const r = saveShowcase_({ business: 'TEST, delete me', name: 'Setup test', systems: ['AI Meeting Notes', 'Tasks & Projects', 'Custom CRM'], maintain: true, notes: 'Setup test from the Apps Script editor.' });
+  console.log(JSON.stringify(r));
 }
 
 // Run to check the Notion connection without making a booking.
