@@ -222,7 +222,7 @@ function sendConfirmation_(d, start, meetLink) {
 }
 
 function notifyOwner_(d, start, meetLink, notionUrl) {
-  const me = Session.getEffectiveUser().getEmail();
+  const me = 'ryan@ashfordintegrations.com';
   const body = [
     'New discovery call booked on the website.',
     '',
@@ -401,7 +401,7 @@ function matchDeal_(token, business) {
 }
 
 function notifyShowcase_(d, url, linked) {
-  const me = Session.getEffectiveUser().getEmail();
+  const me = 'ryan@ashfordintegrations.com';
   const pounds = n => '£' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   const body = [
     'A new build was saved from the System Showcase.',
