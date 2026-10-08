@@ -290,6 +290,8 @@ button.link-name:hover{color:var(--accent);text-decoration:underline;text-underl
 .sums label{display:flex;align-items:flex-start;gap:.6rem;color:var(--ink);cursor:pointer}
 .sums input{accent-color:var(--accent);width:1rem;height:1rem;margin:.2rem 0 0;flex:none}
 .sums small{display:block;color:var(--mute);font-size:.8125rem;line-height:1.4}
+.run-note{margin:0;padding-left:1.6rem;font-size:.875rem;line-height:1.45;color:var(--mute);font-variant-numeric:tabular-nums}
+.run-note b{font-weight:700;color:var(--ink)}
 .founding{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .6rem;margin:1rem 0 0;font-size:.875rem;line-height:1.5;color:var(--mute)}
 .cta{display:grid;gap:.85rem;align-content:start}
 .cta p{margin:0;font-size:.9375rem;line-height:1.5;color:var(--mute)}
@@ -418,8 +420,9 @@ textarea.input{min-height:15rem;resize:vertical}
           <div><dt>Core build: the Brain and any two systems</dt><dd id="brain-amt">£1,650</dd></div>
           <div><dt>Extra systems · <span id="addon-n">0</span> × <span id="addon-each">£300</span></dt><dd id="addon-amt">£0</dd></div>
           <div class="total"><dt>Build total</dt><dd id="total-dd">£1,650</dd></div>
-          <div class="monthly"><dt><label for="maintain"><input type="checkbox" id="maintain" checked><span>Run and maintain<small>Maintained, because AI moves. We keep every system working as the tools change.</small></span></label></dt><dd id="maint-amt">£265/mo</dd></div>
+          <div class="monthly"><dt><label for="maintain"><input type="checkbox" id="maintain" checked><span>Maintain<small>Bugs, updates and tweaks. We keep every system working as the tools change.</small></span></label></dt><dd id="maint-amt">£100/mo</dd></div>
         </dl>
+        <p class="run-note" id="run-note"><b>Run: £50/hr</b>, only when you want us operating it for you.</p>
         <p class="founding" id="founding"></p>
       </div>
       <div class="cta">
@@ -473,7 +476,8 @@ textarea.input{min-height:15rem;resize:vertical}
     addonPrice: 300,       // each system beyond the included ones
     included: 2,           // systems covered by the core build (any two)
     recommended: ["meetings", "tasks"],   // our recommended first two
-    maintainPrice: 265,    // run and maintain, per month
+    maintainPrice: 100,    // maintain (bugs, updates, tweaks), per month, flat
+    runRate: 50,           // run (operating the system for the client), per hour, billed on top; never in a total
     maintainDefault: true,
     showFounding: true,
     email: "ryan@ashfordintegrations.com",
@@ -1046,6 +1050,7 @@ textarea.input{min-height:15rem;resize:vertical}
   $("brain-amt").textContent = money(CONFIG.brainPrice);
   $("addon-each").textContent = money(CONFIG.addonPrice);
   $("maint-amt").textContent = money(CONFIG.maintainPrice) + "/mo";
+  $("run-note").innerHTML = "<b>Run: " + money(CONFIG.runRate) + "/hr</b>, only when you want us operating it for you.";
   $("maintain").checked = state.maintain;
   $("email").textContent = CONFIG.email;
   $("founding").innerHTML = CONFIG.showFounding ? '<span class="tag tag-on">Founding client</span><span>Founding places are open: 50% off the build, in exchange for a written case study.</span>' : "";
@@ -1074,7 +1079,8 @@ textarea.input{min-height:15rem;resize:vertical}
     var lines = ["My Ashford build", "", "Core build, the AI Business Brain plus any two systems: " + money(CONFIG.brainPrice)];
     state.unlocked.forEach(function(id){ lines.push(NODES[id].name + (NODES[id].team ? " (whole team, people or departments)" : "") + ": " + (isIncluded(id) ? "included" : money(CONFIG.addonPrice))); });
     lines.push("", "Build total: " + money(total()));
-    if (state.maintain) lines.push("Run and maintain: " + money(CONFIG.maintainPrice) + " a month");
+    if (state.maintain) lines.push("Maintain: " + money(CONFIG.maintainPrice) + " a month");
+    lines.push("Run: " + money(CONFIG.runRate) + " an hour, as needed");
     if (notes.business || notes.name || notes.email) lines.push("", "Business: " + (notes.business || "-"), "Contact: " + ([notes.name, notes.email].filter(Boolean).join(", ") || "-"));
     if (notes.notes) lines.push("", "Additional information:", notes.notes);
     return lines.join("\n");
