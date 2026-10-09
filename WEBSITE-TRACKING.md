@@ -16,7 +16,7 @@ How to use it:
 | 4 | Calendar invite Accept and Decline replies go to Gmail | 08 Oct 2026 | None | Only fixable by running the script from a Google account under the business email |
 | 5 | Booking slots only read the Gmail account's Google Calendar | 08 Oct 2026 | Before the first real booking | Confirm client meetings live in that calendar, not Outlook |
 | 6 | Notion Showcase Builds column is still called "Run and maintain" | 08 Oct 2026 | None | Optional. Renaming it needs the same rename in `_booking/Code.gs` and the live script at the same time, or saves fail. |
-| 7 | Mac source `ABF/Sales/System Showcase/ashford-system-showcase.html` is missing the board tag padding fix | 09 Oct 2026 | Before the next `build-site-page.py` run | Copy in the System Showcase artifact again (version 17 or later) |
+| 7 | Mac source `ABF/Sales/System Showcase/ashford-system-showcase.html` is missing the board tag padding fix and the "Included" label fix | 09 Oct 2026 | Before the next `build-site-page.py` run | Copy in the System Showcase artifact again (version 18 or later) |
 
 ## How it runs
 
@@ -57,6 +57,7 @@ Newest first. Before 25 Sep 2026 the site was changed by direct commits: see the
 
 | Date | PR | Change | Notes |
 |---|---|---|---|
+| 09 Oct 2026 | [#49](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/49) | Showcase: a system that is off no longer says "Included". Blank while an included place is free, £300 once both are taken. | Same fix in the System Showcase artifact (version 18). The Mac source still needs re-copying. |
 | 09 Oct 2026 | [#48](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/48) | Showcase build board: "One price, whole team" and "Recommended" tags get their side padding back | Same fix in the System Showcase artifact (version 17). The Mac source still needs re-copying. |
 | 09 Oct 2026 | [#47](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/47) | System Showcase pricing: Maintain £100/mo (was £265), Run £50/hr shown but never totalled | From Ashford Pricing Model.xlsx, updated 08 Oct 2026. Core £1,650 and extra system £300 unchanged. Same change made in the System Showcase artifact (version 16). Live Apps Script redeployed and Mac source file replaced on 09 Oct 2026. |
 | 08 Oct 2026 | [#46](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/46) | Booking script: visitor replies go to ryan@ashfordintegrations.com | Same edit made in the live Apps Script and redeployed |
