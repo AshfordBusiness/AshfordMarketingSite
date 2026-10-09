@@ -58,6 +58,7 @@ Newest first. Before 25 Sep 2026 the site was changed by direct commits: see the
 
 | Date | PR | Change | Notes |
 |---|---|---|---|
+| 09 Oct 2026 | [#52](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/52) | Showcase: press P to hide or show prices, or open with `#noprices` | No visible control; prices shown by default. Same change in the System Showcase artifact (version 21). The Mac source still needs re-copying. |
 | 09 Oct 2026 | [#51](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/51) | Showcase Brain card: removed the "Attached right now" section, which repeated the map, board and summary | Same change in the System Showcase artifact (version 20). The Mac source still needs re-copying. |
 | 09 Oct 2026 | [#50](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/50) | Showcase build summary: simpler intro and row wording, and the extra systems row only shows when there is one | Same change in the System Showcase artifact (version 19). The Mac source still needs re-copying. |
 | 09 Oct 2026 | [#49](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/49) | Showcase: a system that is off no longer says "Included". Blank while an included place is free, £300 once both are taken. | Same fix in the System Showcase artifact (version 18). The Mac source still needs re-copying. |
