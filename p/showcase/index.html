@@ -644,9 +644,11 @@ textarea.input{min-height:15rem;resize:vertical}
   function extras(){ return Math.max(0, state.unlocked.length - CONFIG.included); }
   function total(){ return CONFIG.brainPrice + extras() * CONFIG.addonPrice; }
   function isIncluded(id){ var i = state.unlocked.indexOf(id); return i > -1 && i < CONFIG.included; }
+  /* A system that is off never reads "Included": it shows nothing while one of the two
+     included places is free, and the extra price once both are taken. */
   function priceLabel(id){
     if (isOn(id)) return isIncluded(id) ? "Included" : money(CONFIG.addonPrice);
-    return state.unlocked.length < CONFIG.included ? "Included" : money(CONFIG.addonPrice);
+    return state.unlocked.length < CONFIG.included ? "" : money(CONFIG.addonPrice);
   }
   function isRec(id){ return CONFIG.recommended.indexOf(id) > -1; }
   function svgEl(tag, attrs, parent){
@@ -718,9 +720,9 @@ textarea.input{min-height:15rem;resize:vertical}
     var on = looksOn(id);
     w.classList.toggle("is-on", on);
     var price = priceLabel(id);
-    st.innerHTML = on ? '<span class="dot"></span>Connected' : LOCK + (price === "Included" ? "Included" : price + '<span class="st-extra">' + (NODES[id].team ? "&nbsp;for the team" : "&nbsp;add-on") + "</span>");
+    st.innerHTML = on ? '<span class="dot"></span>Connected' : LOCK + (price === "Included" ? "Included" : !price ? "Off" : price + '<span class="st-extra">' + (NODES[id].team ? "&nbsp;for the team" : "&nbsp;add-on") + "</span>");
     w.querySelector(".node-switch").setAttribute("aria-checked", isOn(id) ? "true" : "false");
-    hit.setAttribute("aria-label", NODES[id].name + (isOn(id) ? ", on. Show details." : ", off, " + (price === "Included" ? "included in the build" : price + " add-on") + ". Switch it on."));
+    hit.setAttribute("aria-label", NODES[id].name + (isOn(id) ? ", on. Show details." : ", off, " + (price ? price + " add-on" : "included if you add it") + ". Switch it on."));
   }
 
   /* ---------- selection frame ---------- */
@@ -987,7 +989,7 @@ textarea.input{min-height:15rem;resize:vertical}
       (n.team ? '<p class="p-team"><b>One price for the whole team.</b> Every dashboard you need is covered, however many people you have. It is not charged per dashboard.</p>' +
       '<p class="p-team"><b>People, departments or a mix.</b> Some teams give each person their own page. Teams with higher staff turnover often prefer a mix of people and departments, so a new starter picks up their department\'s page on day one.</p>' : "") + "</div>";
     if (id === "brain") h += '<p class="tag tag-on p-core">Core build · includes any 2 systems</p>';
-    else h += '<button type="button" class="p-switch" role="switch" aria-checked="' + on + '" data-toggle="' + id + '" data-from="panel" data-focus="p-switch" aria-label="' + n.name + ", " + (price === "Included" ? "included in the build" : price + " add-on") + '">' + TRACK +
+    else h += '<button type="button" class="p-switch" role="switch" aria-checked="' + on + '" data-toggle="' + id + '" data-from="panel" data-focus="p-switch" aria-label="' + n.name + ", " + (price === "Included" ? "included in the build" : price ? price + " add-on" : "included if you add it") + '">' + TRACK +
       "<strong>" + (on ? "On" : "Off") + '</strong><span class="price' + (price === "Included" ? " is-incl" : "") + '">' + price + "</span></button>";
     h += "</div>";
 
