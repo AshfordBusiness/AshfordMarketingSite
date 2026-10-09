@@ -263,6 +263,10 @@ button.link-name:hover{color:var(--accent);text-decoration:underline;text-underl
 .build-head h2{margin:0;font-size:clamp(2rem,3vw,3rem);line-height:1.08;font-weight:800;letter-spacing:-.025em;text-wrap:balance}
 .build-head p{margin:0;font-size:1.1875rem;color:var(--mute);max-width:46ch}
 .build-cols{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr) minmax(0,.85fr);gap:clamp(1.25rem,3vw,3rem);align-items:start}
+/* Prices hidden (press P, or open the page with #noprices): every £ figure goes, and the board sits beside the call to action */
+.no-prices .bar-total,.no-prices .board-price,.no-prices .sums-col,.no-prices .p-switch .price{display:none}
+.no-prices .build-cols{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)}
+@media (max-width:900px){ .no-prices .build-cols{grid-template-columns:minmax(0,1fr)} }
 .board{list-style:none;margin:0;padding:0;display:grid}
 .board-row{display:grid;grid-template-columns:2.75rem minmax(0,1fr) auto;align-items:center;gap:.9rem;padding-block:.6rem;border-bottom:1px solid var(--line)}
 .board-row:first-child{border-top:1px solid var(--line)}
@@ -401,7 +405,7 @@ textarea.input{min-height:15rem;resize:vertical}
   <div class="wrap build" id="build">
     <div class="build-head">
       <h2 id="build-h">Switch systems on and off.</h2>
-      <p>Pick the systems you want. Any 2 are included, and each extra one is £300.</p>
+      <p id="build-intro">Pick the systems you want. Any 2 are included, and each extra one is £300.</p>
     </div>
     <div class="build-cols">
       <div>
@@ -412,7 +416,7 @@ textarea.input{min-height:15rem;resize:vertical}
           <button type="button" class="pill pill-line pill-sm" data-act="all-off">Turn everything off</button>
         </div>
       </div>
-      <div>
+      <div class="sums-col">
         <dl class="sums" id="sums">
           <div><dt>The Brain and any 2 systems</dt><dd id="brain-amt">£1,650</dd></div>
           <div id="addon-row" hidden><dt id="addon-label">Extra systems</dt><dd id="addon-amt">£0</dd></div>
@@ -622,6 +626,9 @@ textarea.input{min-height:15rem;resize:vertical}
 
   /* ---------- state ---------- */
   var state = { unlocked: [], maintain: CONFIG.maintainDefault };
+  /* Prices can be hidden for a consultation: press P to hide or show them, or open the page
+     with #noprices. Hidden means no £ figures anywhere, including the copied build. */
+  var showPrices = location.hash !== "#noprices";
   try {
     var saved = JSON.parse(localStorage.getItem(STORE_KEY) || "null");
     if (saved && Array.isArray(saved.unlocked)) {
@@ -642,8 +649,9 @@ textarea.input{min-height:15rem;resize:vertical}
   function total(){ return CONFIG.brainPrice + extras() * CONFIG.addonPrice; }
   function isIncluded(id){ var i = state.unlocked.indexOf(id); return i > -1 && i < CONFIG.included; }
   /* A system that is off never reads "Included": it shows nothing while one of the two
-     included places is free, and the extra price once both are taken. */
+     included places is free, and the extra price once both are taken. Empty while prices are hidden. */
   function priceLabel(id){
+    if (!showPrices) return "";
     if (isOn(id)) return isIncluded(id) ? "Included" : money(CONFIG.addonPrice);
     return state.unlocked.length < CONFIG.included ? "" : money(CONFIG.addonPrice);
   }
@@ -719,7 +727,7 @@ textarea.input{min-height:15rem;resize:vertical}
     var price = priceLabel(id);
     st.innerHTML = on ? '<span class="dot"></span>Connected' : LOCK + (price === "Included" ? "Included" : !price ? "Off" : price + '<span class="st-extra">' + (NODES[id].team ? "&nbsp;for the team" : "&nbsp;add-on") + "</span>");
     w.querySelector(".node-switch").setAttribute("aria-checked", isOn(id) ? "true" : "false");
-    hit.setAttribute("aria-label", NODES[id].name + (isOn(id) ? ", on. Show details." : ", off, " + (price ? price + " add-on" : "included if you add it") + ". Switch it on."));
+    hit.setAttribute("aria-label", NODES[id].name + (isOn(id) ? ", on. Show details." : ", off" + (price ? ", " + price + " add-on" : showPrices ? ", included if you add it" : "") + ". Switch it on."));
   }
 
   /* ---------- selection frame ---------- */
@@ -838,14 +846,14 @@ textarea.input{min-height:15rem;resize:vertical}
     });
 
     if (state.unlocked.length === 5) {
-      say("<strong>Full system connected.</strong> Every system now runs through one Brain. Build total " + money(total()) + ".");
+      say("<strong>Full system connected.</strong> Every system now runs through one Brain." + (showPrices ? " Build total " + money(total()) + "." : ""));
     } else if (!opts.quiet) {
-      var msg = "<strong>" + NODES[id].name + " is on</strong>, " + (isIncluded(id) ? "included in your build" : "+" + money(CONFIG.addonPrice) + " to your build") + (NODES[id].team ? ", covering your whole team." : ".");
+      var msg = "<strong>" + NODES[id].name + " is on</strong>" + (showPrices ? ", " + (isIncluded(id) ? "included in your build" : "+" + money(CONFIG.addonPrice) + " to your build") : "") + (NODES[id].team ? ", covering your whole team." : ".");
       if (newLinks.length) {
         var l = RING[newLinks[0]], other = l[0] === id ? l[1] : l[0];
         msg += " New link with " + NODES[other].name + ": " + l[2].charAt(0).toLowerCase() + l[2].slice(1);
       }
-      msg += " Build total now " + money(total()) + ".";
+      if (showPrices) msg += " Build total now " + money(total()) + ".";
       if (opts.select) msg += '<button type="button" class="jump" data-jump>See what you get' + arrow("down") + "</button>";
       say(msg);
     }
@@ -879,7 +887,7 @@ textarea.input{min-height:15rem;resize:vertical}
     if (!opts.quiet) {
       var msg = "<strong>" + NODES[id].name + " is off.</strong>";
       if (broken.length) msg += (broken.length > 1 ? " Its links with " : " Its link with ") + broken.join(" and ") + (broken.length > 1 ? " are" : " is") + " off too.";
-      say(msg + " Build total now " + money(total()) + ".");
+      say(msg + (showPrices ? " Build total now " + money(total()) + "." : ""));
     }
     renderPanel(current, { flip: { id: id, from: true } });
     refresh();
@@ -904,7 +912,7 @@ textarea.input{min-height:15rem;resize:vertical}
     clearBulk();
     ADDONS.forEach(function(id){ if (!isRec(id)) turnOff(id, { quiet: true }); });
     var todo = CONFIG.recommended.filter(function(id){ return !isOn(id); });
-    function done(){ say("<strong>Recommended start:</strong> AI Meeting Notes and Tasks &amp; Projects, both included. Build total " + money(total()) + "."); }
+    function done(){ say("<strong>Recommended start:</strong> AI Meeting Notes and Tasks &amp; Projects" + (showPrices ? ", both included. Build total " + money(total()) + "." : ".")); }
     if (!todo.length) { done(); return; }
     todo.forEach(function(id, k){
       bulkTimers.push(setTimeout(function(){ turnOn(id, { quiet: true }); if (k === todo.length - 1) done(); }, reduce ? 0 : k * 320));
@@ -979,7 +987,7 @@ textarea.input{min-height:15rem;resize:vertical}
       (n.team ? '<p class="p-team"><b>One price for the whole team.</b> Every dashboard you need is covered, however many people you have. It is not charged per dashboard.</p>' +
       '<p class="p-team"><b>People, departments or a mix.</b> Some teams give each person their own page. Teams with higher staff turnover often prefer a mix of people and departments, so a new starter picks up their department\'s page on day one.</p>' : "") + "</div>";
     if (id === "brain") h += '<p class="tag tag-on p-core">Core build · includes any 2 systems</p>';
-    else h += '<button type="button" class="p-switch" role="switch" aria-checked="' + on + '" data-toggle="' + id + '" data-from="panel" data-focus="p-switch" aria-label="' + n.name + ", " + (price === "Included" ? "included in the build" : price ? price + " add-on" : "included if you add it") + '">' + TRACK +
+    else h += '<button type="button" class="p-switch" role="switch" aria-checked="' + on + '" data-toggle="' + id + '" data-from="panel" data-focus="p-switch" aria-label="' + n.name + (price === "Included" ? ", included in the build" : price ? ", " + price + " add-on" : showPrices ? ", included if you add it" : "") + '">' + TRACK +
       "<strong>" + (on ? "On" : "Off") + '</strong><span class="price' + (price === "Included" ? " is-incl" : "") + '">' + price + "</span></button>";
     h += "</div>";
 
@@ -1046,7 +1054,7 @@ textarea.input{min-height:15rem;resize:vertical}
   $("founding").innerHTML = CONFIG.showFounding ? '<span class="tag tag-on">Founding client</span><span>Founding places are open: 50% off the build, in exchange for a written case study.</span>' : "";
 
   var totalEl = $("total-dd");
-  function refresh(){
+  function refresh(keepStatus){
     var n = state.unlocked.length, t = total(), changed = totalEl._v != null && totalEl._v !== t;
     tween($("count"), n, String);
     tween($("bar-total"), t, money);
@@ -1064,15 +1072,17 @@ textarea.input{min-height:15rem;resize:vertical}
     $("addon-label").textContent = x + (x === 1 ? " extra system" : " extra systems");
     tween($("addon-amt"), extras() * CONFIG.addonPrice, money);
     tween(totalEl, t, money);
-    markDirty();
+    if (!keepStatus) markDirty();
     if (changed && !reduce) [totalEl, $("bar-total")].forEach(function(el){ el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); });
   }
   function buildText(){
-    var lines = ["My Ashford build", "", "Core build, the AI Business Brain plus any two systems: " + money(CONFIG.brainPrice)];
-    state.unlocked.forEach(function(id){ lines.push(NODES[id].name + (NODES[id].team ? " (whole team, people or departments)" : "") + ": " + (isIncluded(id) ? "included" : money(CONFIG.addonPrice))); });
-    lines.push("", "Build total: " + money(total()));
-    if (state.maintain) lines.push("Maintain: " + money(CONFIG.maintainPrice) + " a month");
-    lines.push("Run: " + money(CONFIG.runRate) + " an hour, as needed");
+    var lines = ["My Ashford build", "", "Core build, the AI Business Brain plus any two systems" + (showPrices ? ": " + money(CONFIG.brainPrice) : "")];
+    state.unlocked.forEach(function(id){ lines.push(NODES[id].name + (NODES[id].team ? " (whole team, people or departments)" : "") + (showPrices ? ": " + (isIncluded(id) ? "included" : money(CONFIG.addonPrice)) : "")); });
+    if (showPrices) {
+      lines.push("", "Build total: " + money(total()));
+      if (state.maintain) lines.push("Maintain: " + money(CONFIG.maintainPrice) + " a month");
+      lines.push("Run: " + money(CONFIG.runRate) + " an hour, as needed");
+    }
     if (notes.business || notes.name || notes.email) lines.push("", "Business: " + (notes.business || "-"), "Contact: " + ([notes.name, notes.email].filter(Boolean).join(", ") || "-"));
     if (notes.notes) lines.push("", "Additional information:", notes.notes);
     return lines.join("\n");
@@ -1206,9 +1216,26 @@ textarea.input{min-height:15rem;resize:vertical}
     scrollToEl(document.querySelector(".stage"));
   });
 
+  /* ---------- prices on and off ---------- */
+  function applyPrices(){
+    document.documentElement.classList.toggle("no-prices", !showPrices);
+    $("build-intro").textContent = "Pick the systems you want." + (showPrices ? " Any 2 are included, and each extra one is " + money(CONFIG.addonPrice) + "." : "");
+    notice.innerHTML = "Click a dimmed system to switch it on." + (showPrices ? " Your build includes any two systems, and each extra one is " + money(CONFIG.addonPrice) + "." : "");
+  }
+  document.addEventListener("keydown", function(e){
+    if ((e.key !== "p" && e.key !== "P") || e.metaKey || e.ctrlKey || e.altKey || e.repeat) return;
+    var t = e.target;
+    if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+    showPrices = !showPrices;
+    applyPrices();
+    refresh(true);
+    renderPanel(current);
+  });
+
   /* ---------- first paint ---------- */
   state.unlocked.forEach(function(id){ spokes[id].lit.classList.add("on"); addSpokePackets(id); });
   RING.forEach(function(link, i){ if (ringIsLit(i)) { ringEls[i].classList.add("on"); addRingPacket(i); } });
+  applyPrices();
   refresh();
   var start = (location.hash || "").slice(1);
   select(ORDER.indexOf(start) > -1 ? start : "brain", false, null, true);
