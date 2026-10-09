@@ -237,17 +237,13 @@ button.link-name:hover{color:var(--accent);text-decoration:underline;text-underl
 .gets-locked div{display:grid;gap:.45rem;padding-top:.25rem}
 .gets-locked .bar{display:block;height:.55rem;border-radius:var(--radius-pill);background:var(--redact);width:var(--w)}
 .gets-locked .bar-b{height:.7rem;background:var(--redact-dark)}
-.conn,.attached{list-style:none;margin:0;padding:0;display:grid}
+.conn{list-style:none;margin:0;padding:0;display:grid}
 .conn li{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:1rem;row-gap:.15rem;align-items:center;padding-block:.7rem}
 .conn li:first-child{padding-top:0}
 .conn li + li{border-top:1px solid var(--line)}
 .conn .tag{grid-column:2;grid-row:1 / span 2}
-.conn .link-name,.attached .link-name{font-size:1rem}
-.conn p,.attached p{margin:0;font-size:.875rem;line-height:1.45;color:var(--mute)}
-.attached{gap:.9rem 1.75rem}
-@container (min-width:38rem){ .attached{grid-template-columns:repeat(3,minmax(0,1fr))} }
-.attached li{display:grid;grid-template-columns:2.75rem minmax(0,1fr);gap:.7rem;align-items:center}
-.attached li:not(.is-on) .link-name{color:var(--mute)}
+.conn .link-name{font-size:1rem}
+.conn p{margin:0;font-size:.875rem;line-height:1.45;color:var(--mute)}
 
 /* Pills */
 .pill{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.9rem 1.5rem;border:0;border-radius:var(--radius-pill);font-size:1rem;font-weight:600;line-height:1.2;white-space:nowrap;cursor:pointer;transition:background-color var(--fast) ease,border-color var(--fast) ease}
@@ -961,13 +957,6 @@ textarea.input{min-height:15rem;resize:vertical}
     });
     return rows;
   }
-  function attachedRows(){
-    return ADDONS.map(function(sid){
-      var on = isOn(sid);
-      return '<li class="' + (on ? "is-on" : "") + '"><button type="button" class="sw" role="switch" aria-checked="' + on + '" data-toggle="' + sid + '" data-from="brain" data-focus="b-' + sid + '" aria-label="' + NODES[sid].name + '">' + TRACK + '</button><div><button type="button" class="link-name" data-go="' + sid + '">' + NODES[sid].name + "</button></div></li>";
-    }).join("");
-  }
-
   /* Every system reads in the same order: what it is, how it works, what you get, what it connects to. */
   function panelHTML(id, reveal){
     var n = NODES[id], on = isOn(id), idx = ORDER.indexOf(id);
@@ -998,7 +987,6 @@ textarea.input{min-height:15rem;resize:vertical}
     h += sec("What you get.", on ? getsHTML(n, reveal) : lockedGets());
     if (id === "brain") {
       h += sec("Where to start.", '<div class="rec"><p>We recommend <b>AI Meeting Notes</b> with <b>Tasks &amp; Projects</b>. Your meetings feed actions straight onto the task and project board, and both are included in the build.</p><button type="button" class="pill pill-green pill-sm" data-act="recommended">Start with these two</button></div>');
-      h += sec("Attached right now: " + state.unlocked.length + " of 5.", '<ul class="attached">' + attachedRows() + '</ul><p class="p-hint">The build includes any two systems. Each extra one is ' + money(CONFIG.addonPrice) + ".</p>");
     }
     else if (id === "dashboards") h += sec(on ? "What your dashboards show." : "What your dashboards would show.", '<ul class="conn">' + dashRows() + "</ul>");
     else h += sec("What it connects to.", '<ul class="conn">' + connRows(id) + "</ul>");
