@@ -69,7 +69,7 @@ The unlisted page `/p/showcase/` saves each build into the Notion **Showcase Bui
 
 ### What happens on each showcase save
 - **Name** is the business. **Systems** lists every system switched on, **Included** the first two, **Extra systems** the rest.
-- **Build total** and **Monthly** are worked out by the script (£1,650 for the Brain and two systems, £300 per extra system, £265 a month to run and maintain), never taken from the page.
+- **Build total** and **Monthly** are worked out by the script (£1,650 for the Brain and two systems, £300 per extra system, £100 a month to maintain), never taken from the page. Run (£50 an hour) is billed separately and never saved here.
 - **Additional information**, **Contact** and **Email** come from the form at the bottom of the page. **Last saved** is the time of the latest save.
 - A new row starts at **Status** New and links to its **Deal** in Sales Pipeline when exactly one deal title contains the business name. Saving again never changes Status or Deal.
 - You get one email per new build. Updates do not email.

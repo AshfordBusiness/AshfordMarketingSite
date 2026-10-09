@@ -300,7 +300,7 @@ const SHOWCASE = {
   included: 2,          // systems covered by the core build
   corePrice: 1650,      // the Brain plus the two included systems
   extraPrice: 300,      // each system after that
-  maintainPrice: 265,   // run and maintain, per month
+  maintainPrice: 100,   // maintain (bugs, updates, tweaks), per month
   maxSavesPer10Min: 40  // across the whole site, to blunt spam
 };
 
@@ -409,7 +409,7 @@ function notifyShowcase_(d, url, linked) {
     'Business: ' + d.business,
     'Contact: ' + (d.name || '-') + (d.email ? ' <' + d.email + '>' : ''),
     'Systems: ' + (d.systems.join(', ') || 'none yet'),
-    'Build total: ' + pounds(showcaseTotal_(d)) + (d.maintain ? ' + ' + pounds(SHOWCASE.maintainPrice) + '/mo run and maintain' : ''),
+    'Build total: ' + pounds(showcaseTotal_(d)) + (d.maintain ? ' + ' + pounds(SHOWCASE.maintainPrice) + '/mo maintain' : ''),
     'Additional information: ' + (d.notes || '-'),
     '',
     'Notion: ' + url + (linked ? ' (linked to the matching deal)' : '')
