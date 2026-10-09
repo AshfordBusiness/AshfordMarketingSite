@@ -15,9 +15,8 @@ How to use it:
 | 3 | Test rows "test 02" and "test 3" in Showcase Builds | 08 Oct 2026 | None | Delete them in Notion |
 | 4 | Calendar invite Accept and Decline replies go to Gmail | 08 Oct 2026 | None | Only fixable by running the script from a Google account under the business email |
 | 5 | Booking slots only read the Gmail account's Google Calendar | 08 Oct 2026 | Before the first real booking | Confirm client meetings live in that calendar, not Outlook |
-| 6 | Live Apps Script still uses Maintain £265 | 08 Oct 2026 | When the pricing change is merged | Change `maintainPrice` to 100 and `'/mo run and maintain'` to `'/mo maintain'`, then redeploy as New version |
-| 7 | Mac source `ABF/Sales/System Showcase/ashford-system-showcase.html` still has the old pricing | 08 Oct 2026 | Before the next `build-site-page.py` run | Copy in the updated System Showcase artifact, or the next rebuild puts £265 back on the site |
-| 8 | Notion Showcase Builds column is still called "Run and maintain" | 08 Oct 2026 | None | Optional. Renaming it needs the same rename in `_booking/Code.gs` and the live script at the same time, or saves fail. |
+| 6 | Notion Showcase Builds column is still called "Run and maintain" | 08 Oct 2026 | None | Optional. Renaming it needs the same rename in `_booking/Code.gs` and the live script at the same time, or saves fail. |
+| 7 | Mac source `ABF/Sales/System Showcase/ashford-system-showcase.html` is missing the board tag padding fix | 09 Oct 2026 | Before the next `build-site-page.py` run | Copy in the System Showcase artifact again (version 17 or later) |
 
 ## How it runs
 
@@ -58,7 +57,8 @@ Newest first. Before 25 Sep 2026 the site was changed by direct commits: see the
 
 | Date | PR | Change | Notes |
 |---|---|---|---|
-| 08 Oct 2026 | Not merged yet | System Showcase pricing: Maintain £100/mo (was £265), Run £50/hr shown but never totalled | From Ashford Pricing Model.xlsx, updated 08 Oct 2026. Core £1,650 and extra system £300 unchanged. Same change made in the System Showcase artifact (version 16). |
+| 09 Oct 2026 | [#48](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/48) | Showcase build board: "One price, whole team" and "Recommended" tags get their side padding back | Same fix in the System Showcase artifact (version 17). The Mac source still needs re-copying. |
+| 09 Oct 2026 | [#47](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/47) | System Showcase pricing: Maintain £100/mo (was £265), Run £50/hr shown but never totalled | From Ashford Pricing Model.xlsx, updated 08 Oct 2026. Core £1,650 and extra system £300 unchanged. Same change made in the System Showcase artifact (version 16). Live Apps Script redeployed and Mac source file replaced on 09 Oct 2026. |
 | 08 Oct 2026 | [#46](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/46) | Booking script: visitor replies go to ryan@ashfordintegrations.com | Same edit made in the live Apps Script and redeployed |
 | 08 Oct 2026 | [#45](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/45) | Booking script: send owner notifications to ryan@ashfordintegrations.com | Same edit made in the live Apps Script and redeployed. Tested: the "test 3" build emailed the business inbox. |
 | 08 Oct 2026 | [#44](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/44) | Add the System Showcase as an unlisted page that saves builds to Notion | Apps Script updated and redeployed, `SHOWCASE_DATABASE_ID` added, Showcase Builds connected to `Website bookings`. Book a Call checked: slots still load. |
