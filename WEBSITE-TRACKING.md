@@ -57,6 +57,7 @@ Newest first. Before 25 Sep 2026 the site was changed by direct commits: see the
 
 | Date | PR | Change | Notes |
 |---|---|---|---|
+| 09 Oct 2026 | [#49](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/49) | Showcase: a system that is off no longer says "Included". Blank while an included place is free, £300 once both are taken. | Same fix in the System Showcase artifact (version 18). The Mac source still needs re-copying. |
 | 09 Oct 2026 | [#48](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/48) | Showcase build board: "One price, whole team" and "Recommended" tags get their side padding back | Same fix in the System Showcase artifact (version 17). The Mac source still needs re-copying. |
 | 09 Oct 2026 | [#47](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/47) | System Showcase pricing: Maintain £100/mo (was £265), Run £50/hr shown but never totalled | From Ashford Pricing Model.xlsx, updated 08 Oct 2026. Core £1,650 and extra system £300 unchanged. Same change made in the System Showcase artifact (version 16). Live Apps Script redeployed and Mac source file replaced on 09 Oct 2026. |
 | 08 Oct 2026 | [#46](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/46) | Booking script: visitor replies go to ryan@ashfordintegrations.com | Same edit made in the live Apps Script and redeployed |
