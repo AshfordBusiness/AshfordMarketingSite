@@ -16,7 +16,7 @@ How to use it:
 | 4 | Calendar invite Accept and Decline replies go to Gmail | 08 Oct 2026 | None | Only fixable by running the script from a Google account under the business email |
 | 5 | Booking slots only read the Gmail account's Google Calendar | 08 Oct 2026 | Before the first real booking | Confirm client meetings live in that calendar, not Outlook |
 | 6 | Notion Showcase Builds column is still called "Run and maintain" | 08 Oct 2026 | None | Optional. Renaming it needs the same rename in `_booking/Code.gs` and the live script at the same time, or saves fail. |
-| 7 | Mac source `ABF/Sales/System Showcase/ashford-system-showcase.html` is missing today's showcase fixes (tag padding, "Included" labels, simpler summary wording, Brain card trimmed) | 09 Oct 2026 | Before the next `build-site-page.py` run | Copy in the System Showcase artifact again (version 20 or later) |
+| 7 | Mac source `ABF/Sales/System Showcase/ashford-system-showcase.html` is missing today's showcase changes (tag padding, "Included" labels, simpler summary wording, Brain card trimmed, price toggle) | 09 Oct 2026 | Before the next `build-site-page.py` run | Copy in the System Showcase artifact again (version 21 or later) |
 
 ## How it runs
 
@@ -25,6 +25,7 @@ How to use it:
 | Hosting | GitHub Pages, deploys from `main` on every merge. Usually live within 10 minutes. |
 | Domain | www.ashfordintegrations.com (`CNAME`) |
 | Unlisted pages (`noindex`) | `p/showcase/`, `p/foresters-arms/`, `p/the-star/` |
+| Showcase prices | Shown by default. Click anywhere on the page, then press **P** to hide or show every price (no visible control). A link ending `#noprices` opens with prices hidden. Hidden also removes prices from Copy my build; saved builds in Notion still get prices. |
 | Kept off the site | `PRODUCT.md`, `DESIGN.md`, `WEBSITE-TRACKING.md` (listed in `_config.yml`), and the `_booking/` folder |
 | Backend | Google Apps Script "Ashford booking". Source: `_booking/Code.gs`. Setup: `_booking/SETUP.md`. |
 | Script runs as | ryandaley000@gmail.com (Execute as: Me). Its Google Calendar gives the free slots, and its Gmail sends the emails. |
@@ -57,6 +58,7 @@ Newest first. Before 25 Sep 2026 the site was changed by direct commits: see the
 
 | Date | PR | Change | Notes |
 |---|---|---|---|
+| 09 Oct 2026 | [#52](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/52) | Showcase: press P to hide or show prices, or open with `#noprices` | No visible control; prices shown by default. Same change in the System Showcase artifact (version 21). The Mac source still needs re-copying. |
 | 09 Oct 2026 | [#51](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/51) | Showcase Brain card: removed the "Attached right now" section, which repeated the map, board and summary | Same change in the System Showcase artifact (version 20). The Mac source still needs re-copying. |
 | 09 Oct 2026 | [#50](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/50) | Showcase build summary: simpler intro and row wording, and the extra systems row only shows when there is one | Same change in the System Showcase artifact (version 19). The Mac source still needs re-copying. |
 | 09 Oct 2026 | [#49](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/49) | Showcase: a system that is off no longer says "Included". Blank while an included place is free, £300 once both are taken. | Same fix in the System Showcase artifact (version 18). The Mac source still needs re-copying. |
