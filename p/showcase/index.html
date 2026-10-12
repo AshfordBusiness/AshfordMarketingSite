@@ -293,7 +293,6 @@ button.link-name:hover{color:var(--accent);text-decoration:underline;text-underl
 .sums small{display:block;color:var(--mute);font-size:.8125rem;line-height:1.4}
 .run-note{margin:0;padding-left:1.6rem;font-size:.875rem;line-height:1.45;color:var(--mute);font-variant-numeric:tabular-nums}
 .run-note b{font-weight:700;color:var(--ink)}
-.founding{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .6rem;margin:1rem 0 0;font-size:.875rem;line-height:1.5;color:var(--mute)}
 .cta{display:grid;gap:.85rem;align-content:start}
 .cta p{margin:0;font-size:.9375rem;line-height:1.5;color:var(--mute)}
 .email{font-weight:700;color:var(--ink);user-select:all;-webkit-user-select:all;overflow-wrap:anywhere}
@@ -424,7 +423,6 @@ textarea.input{min-height:15rem;resize:vertical}
           <div class="monthly"><dt><label for="maintain"><input type="checkbox" id="maintain" checked><span>Maintain<small>Bugs, updates and tweaks. We keep every system working as the tools change.</small></span></label></dt><dd id="maint-amt">£100/mo</dd></div>
         </dl>
         <p class="run-note" id="run-note"><b>Operations fee: to be discussed.</b> A set number of hours each week to keep building on your original build.</p>
-        <p class="founding" id="founding"></p>
       </div>
       <div class="cta">
         <button type="button" class="pill pill-green pill-block" id="copy">Copy my build</button>
@@ -479,7 +477,6 @@ textarea.input{min-height:15rem;resize:vertical}
     recommended: ["meetings", "tasks"],   // our recommended first two
     maintainPrice: 100,    // maintain (bugs, updates, tweaks), per month, flat
     maintainDefault: true,
-    showFounding: true,
     email: "ryan@ashfordintegrations.com",
     saveUrl: "https://script.google.com/macros/s/AKfycbyeicZdCrR4PBV8_VxSCwYyTZTNfREkAKTfxNythU1-ZAxDdOJMmSNhFjY_ZcxCis2Vxw/exec"            // the website sets this to the Apps Script web app; empty means no Save button
   };
@@ -1049,7 +1046,6 @@ textarea.input{min-height:15rem;resize:vertical}
   $("maint-amt").textContent = money(CONFIG.maintainPrice) + "/mo";
   $("maintain").checked = state.maintain;
   $("email").textContent = CONFIG.email;
-  $("founding").innerHTML = CONFIG.showFounding ? '<span class="tag tag-on">Founding client</span><span>Founding places are open: 50% off the build, in exchange for a written case study.</span>' : "";
 
   var totalEl = $("total-dd");
   function refresh(keepStatus){
