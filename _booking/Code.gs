@@ -12,6 +12,11 @@
  *   POST {kind:'showcase', ...} -> creates or updates a row in the Notion
  *                                  Showcase Builds database
  *
+ * And it takes opt-ins from the unlisted AI plan pages (/p/plan/a/, /b/, /c/):
+ *   POST {kind:'optin', ...}    -> adds a Lead to the Notion Sales Pipeline,
+ *                                  emails Ryan, and sends the visitor a
+ *                                  short confirmation
+ *
  * Setup steps are in _booking/SETUP.md. Secrets live in Script Properties,
  * never in this file:
  *   NOTION_TOKEN           internal integration secret (starts "ntn_" or "secret_")
@@ -52,6 +57,7 @@ function doPost(e) {
   }
   if (data.website) return json_({ ok: true }); // honeypot filled: silently drop bots
   if (data.kind === 'showcase') return json_(saveShowcase_(data));
+  if (data.kind === 'optin') return json_(saveOptin_(data));
 
   const v = validate_(data);
   if (v) return json_({ ok: false, error: v });
@@ -450,6 +456,180 @@ function editKeyOf_(page) {
   return p && p.rich_text ? p.rich_text.map(t => t.plain_text).join('') : '';
 }
 
+/* ---------- AI plan opt-ins ---------- */
+// The unlisted pages /p/plan/a/, /b/ and /c/ post here. Each opt-in becomes a Lead in the
+// Sales Pipeline, emails Ryan, and sends the visitor a short confirmation. The Notion row is
+// written first, so a lead is kept even if an email fails (for example, Gmail's daily limit).
+
+const OPTIN = {
+  replyWorkingDays: 2,      // promised on the page: "within two working days"
+  variants: ['a', 'b', 'c'],
+  maxPer10Min: 30,          // across the whole site, to blunt spam
+  repeatMinutes: 10         // the same email again within this window counts once
+};
+
+function saveOptin_(d) {
+  const v = validateOptin_(d);
+  if (v) return { ok: false, error: v };
+
+  const cache = CacheService.getScriptCache();
+  const repeatKey = 'optin:' + d.email.toLowerCase();
+  if (cache.get(repeatKey)) return { ok: true, repeat: true };
+  if (optinBusy_()) return { ok: false, error: 'Lots of sign-ups just now. Please try again in a few minutes.' };
+
+  const lock = LockService.getScriptLock();
+  if (!lock.tryLock(20000)) return { ok: false, error: 'Busy, please try again.' };
+  try {
+    if (cache.get(repeatKey)) return { ok: true, repeat: true };
+    const now = new Date();
+    const due = addWorkingDays_(now, OPTIN.replyWorkingDays);
+
+    let notionUrl = '', saved = false, told = false;
+    try { notionUrl = addOptinToNotion_(d, now, due); saved = true; } catch (err) { console.error('Opt-in Notion: ' + err); }
+    try { notifyOptin_(d, due, notionUrl); told = true; } catch (err) { console.error('Opt-in owner email: ' + err); }
+    if (!saved && !told) return { ok: false, error: 'Something went wrong. Please email ryan@ashfordintegrations.com.' };
+    try { confirmOptin_(d, due); } catch (err) { console.error('Opt-in confirmation email: ' + err); }
+
+    cache.put(repeatKey, '1', OPTIN.repeatMinutes * 60);
+    return { ok: true };
+  } catch (err) {
+    console.error(err);
+    return { ok: false, error: 'Something went wrong. Please email ryan@ashfordintegrations.com.' };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+// Same checks as the page (assets/plan.js), so a lead is never saved half-filled.
+function validateOptin_(d) {
+  const clean = (s, max) => String(s || '').replace(/\s+/g, ' ').trim().slice(0, max);
+  d.name = clean(d.name, 120);
+  d.email = String(d.email || '').replace(/\s/g, '').slice(0, 160);
+  d.company = clean(d.company, 120);
+  d.week = clean(d.week, 300);
+  d.consent = d.consent === true;
+  const variant = String(d.variant || '').toLowerCase();
+  d.variant = OPTIN.variants.indexOf(variant) > -1 ? variant : 'unknown';
+  d.src = String(d.src || '').toLowerCase().replace(/[^a-z0-9_.-]/g, '').slice(0, 40);
+  if (d.name.length < 2) return 'Please add your name.';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) return 'Please add a valid work email.';
+  if (d.company.length < 2) return 'Please add your company.';
+  return '';
+}
+
+// Counts opt-ins in fixed 10 minute windows, so steady traffic never locks the form for long.
+function optinBusy_() {
+  const cache = CacheService.getScriptCache();
+  const key = 'optin-count:' + Math.floor(Date.now() / 600000);
+  const n = Number(cache.get(key) || 0) + 1;
+  cache.put(key, String(n), 600);
+  return n > OPTIN.maxPer10Min;
+}
+
+// Working days skip Saturday and Sunday (UK bank holidays are not skipped).
+// Counts from midday London time, so a clock change can never skip or repeat a day.
+function addWorkingDays_(from, n) {
+  let d = londonTime_(Utilities.formatDate(from, CONFIG.timeZone, 'yyyy-MM-dd'), '12:00');
+  let added = 0;
+  while (added < n) {
+    d = new Date(d.getTime() + 86400000);
+    if (Number(Utilities.formatDate(d, CONFIG.timeZone, 'u')) <= 5) added++; // 1=Mon..7=Sun
+  }
+  return d;
+}
+
+function optinFacts_(d) {
+  return {
+    week: d.week || '(not given)',
+    variant: d.variant.toUpperCase(),
+    src: d.src || '(none)',
+    consent: d.consent ? 'yes' : 'no'
+  };
+}
+
+function addOptinToNotion_(d, now, due) {
+  const props = PropertiesService.getScriptProperties();
+  const token = props.getProperty('NOTION_TOKEN');
+  const db = props.getProperty('NOTION_DATABASE_ID');
+  if (!token || !db) throw new Error('NOTION_TOKEN or NOTION_DATABASE_ID not set');
+
+  const f = optinFacts_(d);
+  const stamp = Utilities.formatDate(now, CONFIG.timeZone, "dd MMM yyyy 'at' HH:mm");
+  const para = s => ({ object: 'block', type: 'paragraph', paragraph: { rich_text: notionText_(s) } });
+  const full = {
+    'Deal': { title: notionText_(d.company + ': AI plan opt-in') },
+    'Stage': { select: { name: 'Lead' } },
+    'Lead Source': { select: { name: 'Website' } },
+    'Next Action': { rich_text: notionText_('Send their three AI jobs') },
+    'Next Action Date': { date: { start: Utilities.formatDate(due, CONFIG.timeZone, 'yyyy-MM-dd') } },
+    'Notes': { rich_text: notionText_(d.name + ' <' + d.email + '>. Their week: ' + f.week + '. Variant: ' + f.variant + '. Src: ' + f.src + '. Consent: ' + f.consent + '.') }
+  };
+  const payload = {
+    parent: { database_id: db },
+    properties: full,
+    children: [
+      para('AI plan opt-in from the website, ' + stamp + ' (UK time).'),
+      para('Contact: ' + d.name + ', ' + d.email + ', ' + d.company),
+      para('What takes up most of their team\'s week: ' + f.week),
+      para('Page variant: ' + f.variant + '. Source (src): ' + f.src + '.'),
+      para(d.consent
+        ? 'Marketing consent: yes. Ticked "Send me occasional emails on using AI in my business." on ' + stamp + '.'
+        : 'Marketing consent: no. The box was left unticked.'),
+      para('Promised: their three AI jobs, and how, by ' + Utilities.formatDate(due, CONFIG.timeZone, 'EEEE d MMMM') + '.')
+    ]
+  };
+  // As with bookings: if a property name or type does not match the database, step down until
+  // the write succeeds. The page body always carries every detail, so the lead is never lost.
+  const attempts = [
+    full,
+    { 'Deal': full['Deal'], 'Next Action Date': full['Next Action Date'], 'Notes': full['Notes'] },
+    { 'Deal': full['Deal'] }
+  ];
+  let res;
+  for (let i = 0; i < attempts.length; i++) {
+    payload.properties = attempts[i];
+    res = notionRequest_(token, 'post', 'pages', payload);
+    if (res.getResponseCode() < 300) break;
+    console.error('Opt-in Notion write attempt ' + (i + 1) + ' failed: ' + res.getContentText());
+  }
+  if (res.getResponseCode() >= 300) throw new Error(res.getContentText());
+  return JSON.parse(res.getContentText()).url || '';
+}
+
+function notifyOptin_(d, due, notionUrl) {
+  const me = 'ryan@ashfordintegrations.com';
+  const f = optinFacts_(d);
+  const body = [
+    'New AI plan opt-in on the website.',
+    '',
+    'Name: ' + d.name,
+    'Email: ' + d.email,
+    'Company: ' + d.company,
+    'Their week: ' + f.week,
+    'Variant: ' + f.variant,
+    'Source (src): ' + f.src,
+    'Marketing emails: ' + f.consent,
+    'Their three jobs are due by: ' + Utilities.formatDate(due, CONFIG.timeZone, 'EEEE d MMMM'),
+    notionUrl ? 'Notion: ' + notionUrl : 'Notion: not written (check NOTION_TOKEN / NOTION_DATABASE_ID)',
+    '',
+    'Reply to this email to write to them directly.'
+  ].join('\n');
+  GmailApp.sendEmail(me, 'New opt-in: ' + d.company + ' (' + f.variant + (d.src ? ', ' + d.src : '') + ')', body, { name: 'Website opt-ins', replyTo: d.email });
+}
+
+function confirmOptin_(d, due) {
+  const first = d.name.split(' ')[0];
+  const html = emailShell_(
+    'Your three AI jobs are on their way',
+    '<p>Hi ' + esc_(first) + ',</p>' +
+    '<p>Thanks for telling me about ' + esc_(d.company) + '. I\'ll send you the three jobs I\'d hand to AI first, and how, by ' + Utilities.formatDate(due, CONFIG.timeZone, 'EEEE d MMMM') + '.</p>' +
+    '<p>If there\'s anything else I should know before then, just reply to this email.</p>' +
+    (d.consent ? '<p>You also asked for occasional emails on using AI in your business. Reply "unsubscribe" any time to stop them.</p>' : '') +
+    '<p>' + CONFIG.owner + '<br>Ashford Integrations</p>'
+  );
+  GmailApp.sendEmail(d.email, 'Your three AI jobs are on their way', plain_(html), { htmlBody: html, name: CONFIG.fromName, replyTo: 'ryan@ashfordintegrations.com' });
+}
+
 /* ---------- helpers ---------- */
 
 function validate_(d) {
@@ -500,6 +680,15 @@ function installReminderTrigger() {
 // Run to check the showcase saves without opening the website. Delete the test row after.
 function testShowcase() {
   const r = saveShowcase_({ business: 'TEST, delete me', name: 'Setup test', systems: ['AI Meeting Notes', 'Tasks & Projects', 'Custom CRM'], maintain: true, notes: 'Setup test from the Apps Script editor.' });
+  console.log(JSON.stringify(r));
+}
+
+// Run to check opt-ins without the website. Adds a "TEST, delete me: AI plan opt-in" row to
+// Sales Pipeline and sends both emails to ryan@ashfordintegrations.com. Delete the row after.
+function testOptin() {
+  const email = 'ryan@ashfordintegrations.com';
+  CacheService.getScriptCache().remove('optin:' + email); // so it can be run twice in a row
+  const r = saveOptin_({ name: 'Setup Test', email: email, company: 'TEST, delete me', week: 'Setup test from the Apps Script editor.', consent: false, variant: 'a', src: 'test' });
   console.log(JSON.stringify(r));
 }
 
