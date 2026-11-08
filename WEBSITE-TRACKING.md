@@ -62,6 +62,7 @@ Newest first. Before 25 Sep 2026 the site was changed by direct commits: see the
 
 | Date | PR | Change | Notes |
 |---|---|---|---|
+| 08 Nov 2026 | [#55](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/55) | AI plan opt-in pages: `p/plan/` redirects to variant A, B or C (unlisted). Each opt-in becomes a Lead in Sales Pipeline, emails Ryan and confirms to the visitor. | Booking script has a new `optin` action. Live Apps Script must get the new code (New version) before merge. Test end to end, then delete the test row. |
 | 09 Oct 2026 | [#52](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/52) | Showcase: press P to hide or show prices, or open with `#noprices` | No visible control; prices shown by default. Same change in the System Showcase artifact (version 21). The Mac source still needs re-copying. |
 | 09 Oct 2026 | [#51](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/51) | Showcase Brain card: removed the "Attached right now" section, which repeated the map, board and summary | Same change in the System Showcase artifact (version 20). The Mac source still needs re-copying. |
 | 09 Oct 2026 | [#50](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/50) | Showcase build summary: simpler intro and row wording, and the extra systems row only shows when there is one | Same change in the System Showcase artifact (version 19). The Mac source still needs re-copying. |
