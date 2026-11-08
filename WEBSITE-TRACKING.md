@@ -17,6 +17,8 @@ How to use it:
 | 5 | Booking slots only read the Gmail account's Google Calendar | 08 Oct 2026 | Before the first real booking | Confirm client meetings live in that calendar, not Outlook |
 | 6 | Notion Showcase Builds column is still called "Run and maintain" | 08 Oct 2026 | None | Optional. Renaming it needs the same rename in `_booking/Code.gs` and the live script at the same time, or saves fail. |
 | 7 | Mac source `ABF/Sales/System Showcase/ashford-system-showcase.html` is missing today's showcase changes (tag padding, "Included" labels, simpler summary wording, Brain card trimmed, price toggle) | 09 Oct 2026 | Before the next `build-site-page.py` run | Copy in the System Showcase artifact again (version 21 or later) |
+| 8 | Live Apps Script needs the opt-in code for the AI plan pages | 08 Nov 2026 | Before merging the opt-in pages | Paste `_booking/Code.gs`, Cmd+S, then New version (see Updating the Apps Script) |
+| 9 | Test opt-in rows in Sales Pipeline ("TEST, delete me: AI plan opt-in" and any others) | 08 Nov 2026 | After the end-to-end test | Delete them in Notion |
 
 ## How it runs
 
@@ -24,16 +26,17 @@ How to use it:
 |---|---|
 | Hosting | GitHub Pages, deploys from `main` on every merge. Usually live within 10 minutes. |
 | Domain | www.ashfordintegrations.com (`CNAME`) |
-| Unlisted pages (`noindex`) | `p/showcase/`, `p/foresters-arms/`, `p/the-star/` |
+| Unlisted pages (`noindex`) | `p/showcase/`, `p/foresters-arms/`, `p/the-star/`, `p/plan/` (redirect), `p/plan/a/`, `p/plan/b/`, `p/plan/c/` |
+| AI plan opt-in pages | Share `https://www.ashfordintegrations.com/p/plan/?src=linkedin` (change `src` per channel). `p/plan/` sends visitors to the active variant, set by `var ACTIVE = 'a';` in `p/plan/index.html`. A is the form only, B adds the mock-up, C adds the mock-up and three bullets. Each opt-in becomes a Lead in Sales Pipeline with the variant and `src` in Notes. |
 | Showcase prices | Shown by default. Click anywhere on the page, then press **P** to hide or show every price (no visible control). A link ending `#noprices` opens with prices hidden. Hidden also removes prices from Copy my build; saved builds in Notion still get prices. |
 | Kept off the site | `PRODUCT.md`, `DESIGN.md`, `WEBSITE-TRACKING.md` (listed in `_config.yml`), and the `_booking/` folder |
 | Backend | Google Apps Script "Ashford booking". Source: `_booking/Code.gs`. Setup: `_booking/SETUP.md`. |
 | Script runs as | ryandaley000@gmail.com (Execute as: Me). Its Google Calendar gives the free slots, and its Gmail sends the emails. |
-| Web app URL | https://script.google.com/macros/s/AKfycbyeicZdCrR4PBV8_VxSCwYyTZTNfREkAKTfxNythU1-ZAxDdOJMmSNhFjY_ZcxCis2Vxw/exec (used by `assets/booking.js` and `p/showcase/index.html`) |
+| Web app URL | https://script.google.com/macros/s/AKfycbyeicZdCrR4PBV8_VxSCwYyTZTNfREkAKTfxNythU1-ZAxDdOJMmSNhFjY_ZcxCis2Vxw/exec (used by `assets/booking.js`, `assets/plan.js` and `p/showcase/index.html`) |
 | Script properties | `NOTION_TOKEN`, `NOTION_DATABASE_ID` (Sales Pipeline), `SHOWCASE_DATABASE_ID` (Showcase Builds) |
 | Notion integration | `Website bookings`, connected to Sales Pipeline and Showcase Builds |
-| Owner emails | "New booking" and "New showcase build" go to ryan@ashfordintegrations.com |
-| Visitor emails | Confirmation and 24-hour reminder are sent from the Gmail account, with Reply-To set to ryan@ashfordintegrations.com |
+| Owner emails | "New booking", "New showcase build" and "New opt-in" go to ryan@ashfordintegrations.com |
+| Visitor emails | Booking confirmation and 24-hour reminder, and the opt-in confirmation, are sent from the Gmail account, with Reply-To set to ryan@ashfordintegrations.com |
 
 ## Updating the Apps Script
 
@@ -51,6 +54,7 @@ How to use it:
 | Cmd+F in Apps Script can miss text | Click inside the code first. Cmd+Option+F opens Find & Replace. |
 | Deploying without saving ships the old code | Cmd+S first, then deploy |
 | The Execute as setting can't be changed to another email | Leave it as **Me**. "User accessing" would make visitors sign in to Google. |
+| An opt-in from the same email within 10 minutes shows the thank-you but adds no row and sends no email | Test with a different email each time, or wait 10 minutes. `testOptin` in the editor clears this itself. |
 
 ## Change log
 
