@@ -17,8 +17,6 @@ How to use it:
 | 5 | Booking slots only read the Gmail account's Google Calendar | 08 Oct 2026 | Before the first real booking | Confirm client meetings live in that calendar, not Outlook |
 | 6 | Notion Showcase Builds column is still called "Run and maintain" | 08 Oct 2026 | None | Optional. Renaming it needs the same rename in `_booking/Code.gs` and the live script at the same time, or saves fail. |
 | 7 | Mac source `ABF/Sales/System Showcase/ashford-system-showcase.html` is missing today's showcase changes (tag padding, "Included" labels, simpler summary wording, Brain card trimmed, price toggle) | 09 Oct 2026 | Before the next `build-site-page.py` run | Copy in the System Showcase artifact again (version 21 or later) |
-| 8 | Live Apps Script needs the opt-in code for the AI plan pages | 08 Nov 2026 | Before merging the opt-in pages | Paste `_booking/Code.gs`, Cmd+S, then New version (see Updating the Apps Script) |
-| 9 | Test opt-in rows in Sales Pipeline ("TEST, delete me: AI plan opt-in" and any others) | 08 Nov 2026 | After the end-to-end test | Delete them in Notion |
 
 ## How it runs
 
@@ -62,7 +60,7 @@ Newest first. Before 25 Sep 2026 the site was changed by direct commits: see the
 
 | Date | PR | Change | Notes |
 |---|---|---|---|
-| 08 Nov 2026 | [#55](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/55) | AI plan opt-in pages: `p/plan/` redirects to variant A, B or C (unlisted). Each opt-in becomes a Lead in Sales Pipeline, emails Ryan and confirms to the visitor. | Booking script has a new `optin` action. Live Apps Script must get the new code (New version) before merge. Test end to end, then delete the test row. |
+| 08 Nov 2026 | [#55](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/55) | AI plan opt-in pages: `p/plan/` redirects to variant A, B or C (unlisted). Each opt-in becomes a Lead in Sales Pipeline, emails Ryan and confirms to the visitor. | Booking script has a new `optin` action. Live Apps Script updated and redeployed (New version) on 09 Nov 2026. `testOptin` checked: Sales Pipeline row correct (Lead, Website, due Wed 11 Nov) and both emails sent. Test row deleted. |
 | 09 Oct 2026 | [#52](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/52) | Showcase: press P to hide or show prices, or open with `#noprices` | No visible control; prices shown by default. Same change in the System Showcase artifact (version 21). The Mac source still needs re-copying. |
 | 09 Oct 2026 | [#51](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/51) | Showcase Brain card: removed the "Attached right now" section, which repeated the map, board and summary | Same change in the System Showcase artifact (version 20). The Mac source still needs re-copying. |
 | 09 Oct 2026 | [#50](https://github.com/AshfordBusiness/AshfordMarketingSite/pull/50) | Showcase build summary: simpler intro and row wording, and the extra systems row only shows when there is one | Same change in the System Showcase artifact (version 19). The Mac source still needs re-copying. |
