@@ -1,0 +1,75 @@
+/* AI plan opt-in pages (/p/plan/a/, /b/, /c/). Builds on site.css tokens. Mobile first.
+   A: headline, subheadline, form.
+   B: adds the app-window mock-up between the subheadline and the form.
+   C: adds the mock-up and three ticked bullets.
+   From 900px, B and C put the mock-up in a right-hand column; A stays one centred column.
+   The form card is flat with a hairline; only the mock-up panel and the green pill lift. */
+
+.pl-top{position:static}
+
+.pl{display:grid;row-gap:24px;padding-top:clamp(20px,4vw,56px);padding-bottom:clamp(48px,7vw,96px)}
+.pl-a{grid-template-areas:"head" "form"}
+.pl-b{grid-template-areas:"head" "visual" "form"}
+.pl-c{grid-template-areas:"head" "visual" "facts" "form"}
+.pl-head{grid-area:head}
+.pl-visual{grid-area:visual}
+.pl-facts{grid-area:facts}
+.pl-card{grid-area:form}
+
+.pl h1{font-size:clamp(36px,4.2vw,58px);font-weight:800;letter-spacing:-.035em;line-height:1.04}
+.pl-head .lede{margin-top:16px}
+
+/* three bullets (C) */
+.pl-facts{list-style:none;display:grid;gap:12px}
+.pl-facts li{display:flex;gap:12px;align-items:flex-start}
+.pl-facts svg{width:22px;height:22px;flex:none;color:var(--accent);margin-top:2px}
+
+/* app-window mock-up (B and C), the house hm-page window */
+.pl-jobs{list-style:none;padding:4px 16px}
+.pl-jobs li{display:grid;grid-template-columns:24px minmax(0,1fr) auto;column-gap:12px;align-items:start;padding:12px 0}
+.pl-jobs li+li{border-top:1px solid #eef1ef}
+.pl-n{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--accent-tint);color:var(--accent-deep);font-size:12px;font-weight:800;font-style:normal}
+.pl-job{font-size:14px;font-weight:700;line-height:1.3;color:var(--ink)}
+.pl-how{font-size:13px;line-height:1.4;color:var(--mute);margin-top:3px}
+.pl-jobs .tag{white-space:nowrap}
+
+/* form card */
+.pl-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:clamp(20px,3vw,32px)}
+.pl-form{display:grid;gap:16px}
+.pl-field{display:grid;gap:6px}
+.pl-field label{font-size:15px;font-weight:600}
+.pl-field label span{font-weight:400;color:var(--mute)}
+.pl-field input{width:100%;min-height:48px;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);font:inherit;font-size:16px;line-height:1.4;caret-color:var(--accent);-webkit-appearance:none;appearance:none;transition:border-color .2s,box-shadow .2s}
+.pl-field input:hover{border-color:#c6cfca}
+.pl-field input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-tint)}
+.pl-field input[aria-invalid="true"]{border-color:#9b2c1f}
+.pl-field input[aria-invalid="true"]:focus{box-shadow:0 0 0 3px #f6e1dd}
+.pl-err{font-size:14px;font-weight:500;color:#9b2c1f}
+.pl-err:empty{display:none}
+.pl-check{display:flex;gap:12px;align-items:flex-start;padding:2px 0;font-size:15px;line-height:1.45;cursor:pointer}
+.pl-check input{flex:none;width:20px;height:20px;margin-top:1px;accent-color:var(--accent);cursor:pointer}
+.pl-check input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.pl-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.pl-submit{justify-content:center;width:100%;margin-top:4px;border:0;font:inherit;font-size:16px;font-weight:600;cursor:pointer}
+.pl-submit:disabled{opacity:.6;cursor:wait;transform:none}
+.pl-status{font-size:14px;color:var(--mute)}
+.pl-status:empty{display:none}
+.pl-status.err{font-weight:500;color:#9b2c1f}
+.pl-privacy{font-size:13px;color:var(--mute)}
+
+/* thank-you state, on the same card */
+.pl-done{display:none}
+.pl-card[data-state="done"] .pl-form{display:none}
+.pl-card[data-state="done"] .pl-done{display:grid;gap:10px;justify-items:start}
+.pl-done svg{width:28px;height:28px;color:var(--accent)}
+.pl-done h2{font-size:24px;font-weight:800;letter-spacing:-.02em}
+.pl-done h2:focus{outline:none}
+.pl-done p{color:var(--mute);max-width:44ch}
+
+@media (min-width:900px){
+  .pl-a{max-width:calc(620px + 2 * var(--pad))}
+  .pl-b,.pl-c{grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:clamp(32px,5vw,72px);align-items:start}
+  .pl-b{grid-template-areas:"head visual" "form visual";grid-template-rows:auto 1fr}
+  .pl-c{grid-template-areas:"head visual" "facts visual" "form visual";grid-template-rows:auto auto 1fr}
+  .pl-visual{position:sticky;top:24px}
+}

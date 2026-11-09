@@ -74,3 +74,20 @@ The unlisted page `/p/showcase/` saves each build into the Notion **Showcase Bui
 - A new row starts at **Status** New and links to its **Deal** in Sales Pipeline when exactly one deal title contains the business name. Saving again never changes Status or Deal.
 - You get one email per new build. Updates do not email.
 - Each row has an **Edit key**. Only the browser that created a build can update it; leave the key alone.
+
+## AI plan opt-in pages (about 5 minutes, once)
+The unlisted pages `/p/plan/a/`, `/p/plan/b/` and `/p/plan/c/` send each opt-in through this same script. Nothing new to connect: they use the Sales Pipeline and the `Website bookings` integration you already have.
+
+1. In the **Editor**, replace all of the code with the latest `Code.gs` from this folder and press **Cmd+S**. Check there's no dot next to `Code.gs`.
+2. Choose `testOptin` and click **Run**. A row called "TEST, delete me: AI plan opt-in" appears in Sales Pipeline, and ryan@ashfordintegrations.com gets a "New opt-in" email and a confirmation email. Delete the row.
+3. Click **Deploy**, then **Manage deployments**. Click the pencil, set **Version** to **New version**, then click **Deploy**. The URL stays the same, so booking and the showcase keep working. Never click **New deployment**.
+
+### What happens on each opt-in
+1. A new row goes into Sales Pipeline:
+   - **Deal** is "{Company}: AI plan opt-in", **Stage** Lead, **Lead Source** Website.
+   - **Next Action** is "Send their three AI jobs", and **Next Action Date** is two working days on (weekends skipped, bank holidays not).
+   - **Notes** holds their name and email, their answer, the page variant (A, B or C), the `src` value from the link, and whether they ticked the marketing box. The page body repeats it all, with the time they ticked the box.
+2. You get a "New opt-in" email. Reply to it to write to them directly.
+3. They get a confirmation from the Gmail account, with Reply-To set to ryan@ashfordintegrations.com, naming the date their three jobs are due.
+
+The row is written before any email, so if Gmail hits its daily sending limit the lead is still in Notion. The same email address within 10 minutes counts once.
