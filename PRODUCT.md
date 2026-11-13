@@ -8,9 +8,9 @@ web
 
 ## Users
 
-Primary: owners and managers of small and medium UK businesses, starting in Edinburgh and Scotland. They are busy running their own industry and have no time to keep up with AI. They come to the site to judge whether Ashford can take a repeated weekly job off their plate, and to book a call.
+Primary: owners and managers of small and medium UK businesses, starting in Edinburgh and Scotland. They are busy running their own industry and have no time to keep up with AI. They come to the site to judge whether Ashford can take a repeated weekly job off their plate, and to book a call. The first screen must say who it is for: small businesses in Edinburgh and across Scotland.
 
-Secondary: people who want to learn to use AI (Teach line). Individuals and groups, any age, from complete beginners to teams already using it badly.
+Secondary: teams that want to learn to use AI (Teach line). Whole-team workshops, up to 12 people, then monthly coaching.
 
 ## Product Purpose
 
@@ -19,7 +19,7 @@ Ashford Integrations is an AI specialist agency in Edinburgh. Legal entity: Ashf
 Two service lines, sold separately. A build can grow into a teaching engagement; never assume it does.
 
 - **Build:** AI systems built into a business. Every build ships with written instructions, included, never charged separately.
-- **Teach:** teaching people to use AI, in business and in ordinary life. One to one or in a group.
+- **Teach:** three half-day team workshops, then monthly coaching so the team keeps building on its own. 1:1 sessions and the AI Clinic are retired.
 
 Success for the site: a qualified business owner emails to book a discovery call.
 
@@ -31,19 +31,19 @@ Concrete beats abstract. The five builds are the examples:
 
 | Build | What it does |
 |---|---|
-| AI operations system | The default build. Core: ops dashboards, CRM and Claude wired into the company's Notion, built from its own material. Add-ons: meeting notes and tasks, project trackers |
+| AI operations system | The default build. The AI Business Brain plus any two systems of the client's choice, from AI Meeting Notes, Tasks & Projects, Custom CRM, Content Creation and Custom Dashboards. Recommended start: AI Meeting Notes with Tasks & Projects |
 | Business AI brain | An AI system built to understand the business at every level, to support well-informed, high-level decisions. Strongest paired with the AI operations system (site wording, Ryan, 25 Sep 2026) |
 | Marketing agents | Planning, writing, posting and tracking, as one running system |
-| AI meeting note taker | No AI joining the call. A bespoke tool that takes notes in meetings and populates the client's custom databases (replaced the follow-up agent on the site, Ryan, 25 Sep 2026) |
+| Follow-up agent | Automated follow-up for service businesses, so quotes and enquiries stop going cold |
 | Lead validation and outreach | Finds, checks and drafts, ready to send |
 
 Teach: plain English, no jargon, no tool worship. People leave able to do the thing, not with notes about it.
 
-Commercial shape that may be stated: fixed prices, mostly monthly.
+Commercial shape that may be stated: one line only: a fixed price, agreed before anything is built. No figures, no comparison with subscriptions.
 
 ## Operating Context
 
-- Sales motion: email to book a 30 minute discovery call, then a written proposal. The site's one action is email to ryan@ashfordintegrations.com.
+- Sales motion: the site's one action is the booking page (`book/`). The site describes how the work runs in three steps and does not mention proposals.
 - Delivery happens inside the client's own Notion, with Claude or ChatGPT.
 - Local and hospitality visitors respond better to the outcome than the label: "I build the systems that stop you doing the same job twice each week, and I teach your staff to use them."
 

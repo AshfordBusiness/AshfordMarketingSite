@@ -187,6 +187,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 @media (max-width:480px){
   .hm-board{grid-template-columns:repeat(3,minmax(0,1fr))}.hm-lane:nth-child(2){display:none}
   .hm-lane{padding:5px}.hm-deal{padding:5px 6px}.hm-deal b{font-size:10px}
+  .feature dl{grid-template-columns:1fr;gap:4px}.feature dd+dt{margin-top:12px}
 }
 @media (max-width:420px){
   .top .wrap{height:64px}
